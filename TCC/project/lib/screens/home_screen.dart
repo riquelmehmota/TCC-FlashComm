@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:project/screens/deck_detail_screen.dart';
 import 'add_card_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(HomeScreen());
 }
 
-class MyApp extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -102,6 +103,14 @@ class _DecksScreenState extends State<DecksScreen> {
     );
   }
 
+  void _navigateToDeckDetailScreen(String deckId) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DeckDetailScreen(deckId: deckId),
+      ),
+    );
+  }
+
   void _navigateToAddCardScreen(String deckId) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -120,6 +129,7 @@ class _DecksScreenState extends State<DecksScreen> {
             icon: Icon(Icons.add),
             onPressed: _showAddDeckDialog,
           ),
+          IconButton(onPressed: _showAddDeckDialog, icon: Icon(Icons.download)),
         ],
       ),
       body: ListView.builder(
@@ -127,19 +137,21 @@ class _DecksScreenState extends State<DecksScreen> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(decks[index]['name']),
+            onTap: () => _navigateToDeckDetailScreen(decks[index]['_id']),
             trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => _navigateToAddCardScreen(decks[index]['_id']),
-                ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () => deleteDeck(decks[index]['_id']),
-                ),
-              ],
-            ),
+            
+  mainAxisSize: MainAxisSize.min, // This ensures the Row only takes as much space as needed
+  children: <Widget>[
+    IconButton(
+      icon: Icon(Icons.add), // First icon
+      onPressed: () => _navigateToAddCardScreen(decks[index]['_id']),
+    ),
+    IconButton(
+      icon: Icon(Icons.delete), // Second icon
+      onPressed: () => deleteDeck(decks[index]['_id']),
+    ),
+  ],
+),
           );
         },
       ),
