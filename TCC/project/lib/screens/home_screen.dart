@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'add_card_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -101,6 +102,14 @@ class _DecksScreenState extends State<DecksScreen> {
     );
   }
 
+  void _navigateToAddCardScreen(String deckId) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AddCardScreen(deckId: deckId),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,9 +127,18 @@ class _DecksScreenState extends State<DecksScreen> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(decks[index]['name']),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () => deleteDeck(decks[index]['_id']),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => _navigateToAddCardScreen(decks[index]['_id']),
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => deleteDeck(decks[index]['_id']),
+                ),
+              ],
             ),
           );
         },
