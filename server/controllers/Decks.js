@@ -7,7 +7,6 @@ function get_all(req, res) {
     })
 }
 
-
 function getbyID(req, res) {
     Deck.findOne({
         where: {
