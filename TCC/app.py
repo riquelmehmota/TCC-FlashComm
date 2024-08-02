@@ -23,3 +23,5 @@ def cadastrar():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
+
+vai tomar no cu
