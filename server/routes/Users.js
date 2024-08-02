@@ -1,0 +1,16 @@
+const route = require('express').Router();
+const Users = require('../controllers/Users');
+
+// Authentication
+// route.post('/login', Users.login);
+// route.get('/profile', auth, Users.profile);
+// route.get('/logout', auth, Users.logout);
+
+//CRUD
+route.post('/register', Users.register);
+route.get('/getall', Users.get_all);
+route.get('/get/:id', Users.getbyID);
+route.put('/update/:id', Users.update);
+route.delete('/delete/:id', Users.remove);
+
+module.exports = route;
