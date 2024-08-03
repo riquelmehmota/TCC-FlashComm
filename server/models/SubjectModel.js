@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, Sequelize) => {
-    Turma = sequelize.define('turma', {
+    const Subject = sequelize.define('subject', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -8,10 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         name: {
             type: Sequelize.STRING
-        },
-        
+        },        
     },{
         timestamps: false
     });
-    return Turma;
+    return Subject;
 };

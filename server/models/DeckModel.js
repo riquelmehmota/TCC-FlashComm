@@ -7,12 +7,17 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         name: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         num_cards: {
             type: Sequelize.STRING,
-            defaultValue: 0
+            defaultValue: 0,
         },
+        description: {
+            type: Sequelize.STRING,
+        },
+        
         
         
     },{

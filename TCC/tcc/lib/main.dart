@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/static/HomePage.dart';
 import 'package:tcc/pages/login_screen.dart';
 void main() {
   runApp(MyApp());

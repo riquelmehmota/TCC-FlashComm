@@ -6,15 +6,20 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         front: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         back: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         deck_id: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false
         },
-        
+        interval: {
+            type: Sequelize.DATE
+        },
     },{
         timestamps: false
     });
