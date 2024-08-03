@@ -12,7 +12,7 @@ class StreakModel extends StatelessWidget {
         child: Container(
           height: MediaQuery.of(context).size.height - 296,
           width: double.infinity,
-          color: const Color.fromARGB(255, 133, 10, 186),
+          color: Color.fromARGB(255, 10, 186, 183),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

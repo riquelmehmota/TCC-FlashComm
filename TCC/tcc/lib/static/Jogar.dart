@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/CardModel.dart';
+import 'package:tcc/static/Card.dart';
 import 'package:tcc/Deck_Dados.dart';
-import 'package:tcc/Resultados.dart';
+import 'package:tcc/static/Resultados.dart';
 
 
 
@@ -66,14 +66,8 @@ class _JogarState extends State<Jogar> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.blue,
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.black, Colors.purple],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
           child: CardModel(
             onFacilIncrement: incrementFacil,
             onMedioIncrement: incrementMedio,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/Jogar.dart';
+import 'package:tcc/static/Jogar.dart';
 class Deck_Jogar_Screen extends StatelessWidget {
   final String nome;
   final int quantidade;
@@ -14,11 +14,7 @@ class Deck_Jogar_Screen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.black, Colors.purple],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: Colors.blue,
         ),
         child: Column(
           children: [
@@ -41,7 +37,15 @@ class Deck_Jogar_Screen extends StatelessWidget {
                     width: 300,
                     height: 480,
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.grey,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(

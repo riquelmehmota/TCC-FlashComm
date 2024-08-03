@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/Deck_Jogar_Screen.dart';
+import 'package:tcc/static/Deck_Jogar_Screen.dart';
 
 //este é o modelo de deck que será utilizado para exibir os decks
 class RowDeckModel extends StatelessWidget {
@@ -15,7 +15,7 @@ class RowDeckModel extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Container(
-          color: Color.fromARGB(255, 133, 10, 186),
+          color: Color.fromARGB(255, 10, 151, 186),
           width: 125,
           height: 200,
           padding: const EdgeInsets.all(10),
