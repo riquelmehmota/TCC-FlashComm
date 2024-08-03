@@ -14,7 +14,11 @@ db.sequelize = sequelize;
 db.user = require('./UserModel')(sequelize, Sequelize);
 db.deck = require('./DeckModel')(sequelize, Sequelize);
 db.card = require('./CardModel')(sequelize, Sequelize);
-db.card.belongsTo(db.deck, { foreignKey: 'deck_id' });
+db.turma = require('./TurmaModel')(sequelize, Sequelize);
+db.deck.hasMany(db.card, { foreignKey: 'deck_id' });
+db.turma.hasMany(db.deck, { foreignKey: 'user_id' });
+db.turma.hasMany(db.user, { foreignKey: 'turma_id' });
+db.user.hasMany(db.turma, { foreignKey: 'turma_id' });
 
 
 module.exports = db;

@@ -1,30 +1,22 @@
 
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define('user', {
+    Turma = sequelize.define('turma', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        username: {
+        name: {
             type: Sequelize.STRING
         },
-        email: {
+        description: {
             type: Sequelize.STRING
         },
-        password: {
+        subject: {
             type: Sequelize.STRING
-        },
-        streak: {
-            type: Sequelize.INTEGER(1000),
-            
-        },
-        profile_image: {
-            type: Sequelize.BLOB('long')
-        }, 
-        
+        }
     },{
         timestamps: false
     });
-    return User;
+    return Turma;
 };
