@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/static/HomePage.dart';
-
+import 'package:tcc/pages/login_screen.dart';
 void main() {
   runApp(MyApp());
 }
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           labelSmall: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
         ),
       ),
-      home: HomePage(),
+      home: LoginScreen(),
     );
   }
 }
