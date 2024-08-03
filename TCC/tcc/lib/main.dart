@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/pages/login_screen.dart';
+import 'package:tcc/pages/sign_in_screen.dart';
+import 'package:tcc/static/HomePage.dart';
 void main() {
   runApp(MyApp());
 }
@@ -8,6 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/login': (context) => LoginScreen(),
+        "/home": (context) => HomePage(),
+        "/signup": (context) => SignUpScreen(),
+      },
+
       theme: ThemeData(
         fontFamily: 'Montserrat',
         textTheme: TextTheme(
