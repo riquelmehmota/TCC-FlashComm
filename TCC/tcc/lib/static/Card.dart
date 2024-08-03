@@ -78,6 +78,7 @@ class _CardModelState extends State<CardModel> {
                                         color:
                                             const Color.fromARGB(255, 0, 0, 0),
                                         fontSize: 30),
+                                        textAlign: TextAlign.center,
                                   ),
                                 ),
                               )

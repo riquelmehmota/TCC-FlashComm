@@ -43,7 +43,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 TextField(
                   decoration: const InputDecoration(
-                    labelText: 'Código da Turma',
+                    labelText: 'Descrição (opcional)',
+                  ),
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Matéria',
                   ),
                 ),
               ],
@@ -91,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                 // Ação para entrar em uma turma
               },
             ),
+            
           ],
         );
       },
@@ -115,7 +121,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(children: [
           AppBar(
             iconTheme: const IconThemeData(color: Colors.white),
-            title: const Text('FlashComm',
+            title: _selectedIndex == 0 ? const Text('Início', style: TextStyle(color: Colors.white)) : _selectedIndex == 1 ? const Text('Minha Turma', style: TextStyle(color: Colors.white)) : _selectedIndex == 2 ? const Text('Explore', style: TextStyle(color: Colors.white)) : const Text('Configurações',
                 style: TextStyle(color: Colors.white)),
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -137,8 +143,8 @@ class _HomePageState extends State<HomePage> {
                     backgroundImage:
                         NetworkImage('https://thispersondoesnotexist.com/'),
                   ),
-                  accountName: Text("Riquelme"),
-                  accountEmail: Text("accountEmail"),
+                  accountName: Text("User", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                  accountEmail: Text("useremail@email.com", style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
                 ),
                 ListTile(
                     leading: Icon(Icons.home),

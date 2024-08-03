@@ -7,13 +7,14 @@ class Resultados extends StatelessWidget {
   final int medio;
   final int dificil;
   final int nao_sei;
-
+  final int seconds;
   const Resultados(
       {super.key,
       required this.facil,
       required this.medio,
       required this.dificil,
-      required this.nao_sei});
+      required this.nao_sei,
+      required this.seconds});
 
   @override
   Widget build(BuildContext context) {
@@ -168,9 +169,12 @@ class Resultados extends StatelessWidget {
                           child: Row(
                             children: [
                               Icon(Icons.call_to_action, color: Colors.white),
-                              Text("Cartas Vistas:",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16)),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text("Cartas Vistas:",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16)),
+                              ),
                             ],
                           ),
                         ),
@@ -199,13 +203,16 @@ class Resultados extends StatelessWidget {
                           child: Row(
                             children: [
                               Icon(Icons.access_time, color: Colors.white),
-                              Text("Tempo de Estudo:",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16)),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text("Tempo de Estudo:",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16)),
+                              ),
                             ],
                           ),
                         ),
-                        Text("2min:30seg",
+                        Text(seconds.toString() + "s",
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)),
                       ],
