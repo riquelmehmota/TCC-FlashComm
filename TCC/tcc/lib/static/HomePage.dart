@@ -24,6 +24,34 @@ final List<Widget> _pages = [
     ExplorePage(),
     ConfiguracoesPage()
   ];
+
+ void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Wrap(
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.add),
+              title: Text('Adicionar Turma'),
+              onTap: () {
+                Navigator.pop(context);
+                
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.group_add),
+              title: Text('Entrar em uma Turma'),
+              onTap: () {
+                Navigator.pop(context);
+                // Ação para entrar em uma turma
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
 
   // A list of pages that correspond to each drawer item
@@ -58,6 +86,14 @@ final List<Widget> _pages = [
         ),
       ),
       home: Scaffold(
+        floatingActionButton: _selectedIndex == 1
+            ? FloatingActionButton(
+                onPressed: () {
+                  _showBottomSheet(context);
+                },
+                child: const Icon(Icons.add),
+              )
+            : null,
         body: Container(
           decoration: BoxDecoration(
             color: Colors.blue[900],
@@ -93,22 +129,34 @@ final List<Widget> _pages = [
                   ListTile(
                     leading: Icon(Icons.home),
                     title: Text('Início'),
-                    onTap: () => _onItemTapped(0),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _onItemTapped(0);
+                    }
                   ),
                   ListTile(
                     leading: Icon(Icons.money),
                     title: Text('Minha Turma'),
-                    onTap: () => _onItemTapped(1),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _onItemTapped(1);
+                    }
                   ),
                   ListTile(
                     leading: Icon(Icons.contact_emergency),
                     title: Text('Explore'),
-                    onTap: () => _onItemTapped(2),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _onItemTapped(2);
+                    }
                   ),
                   ListTile(
                     leading: Icon(Icons.settings),
                     title: Text('Configurações'),
-                    onTap: () => _onItemTapped(3),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _onItemTapped(3);
+                    }
                   ),
                 ],
               ),
