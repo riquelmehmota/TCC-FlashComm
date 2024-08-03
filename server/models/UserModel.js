@@ -18,6 +18,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
+        salt: {
+            type: Sequelize.BLOB('long'),
+            allowNull: false
+        },
         streak: {
             type: Sequelize.INTEGER,
             
