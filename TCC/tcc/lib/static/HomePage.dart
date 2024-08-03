@@ -18,14 +18,57 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
-final List<Widget> _pages = [
+
+  final List<Widget> _pages = [
     InicioPage(),
     TurmaPage(),
     ExplorePage(),
     ConfiguracoesPage()
   ];
 
- void _showBottomSheet(BuildContext context) {
+  void _FormsAdd(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Adicionar Turma'),
+          content: Container(
+            width: double.maxFinite,
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Nome da Turma',
+                  ),
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Código da Turma',
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Adicionar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -35,8 +78,9 @@ final List<Widget> _pages = [
               leading: Icon(Icons.add),
               title: Text('Adicionar Turma'),
               onTap: () {
-                Navigator.pop(context);
                 
+                Navigator.pop(context);
+                _FormsAdd(context);
               },
             ),
             ListTile(
@@ -52,114 +96,79 @@ final List<Widget> _pages = [
       },
     );
   }
-  @override
 
-  // A list of pages that correspond to each drawer item
-  
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Montserrat',
-        textTheme: TextTheme(
-          headlineLarge:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          headlineMedium:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          headlineSmall:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          titleLarge:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          titleMedium:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          titleSmall:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          bodyLarge:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          bodyMedium:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          bodySmall:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          labelLarge:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          labelSmall:
-              TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
+    return Scaffold(
+      floatingActionButton: _selectedIndex == 1
+          ? FloatingActionButton(
+              onPressed: () {
+                _showBottomSheet(context);
+              },
+              child: const Icon(Icons.add),
+            )
+          : null,
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.blue[900],
         ),
-      ),
-      home: Scaffold(
-        floatingActionButton: _selectedIndex == 1
-            ? FloatingActionButton(
-                onPressed: () {
-                  _showBottomSheet(context);
-                },
-                child: const Icon(Icons.add),
-              )
-            : null,
-        body: Container(
-          decoration: BoxDecoration(
-            color: Colors.blue[900],
+        child: Column(children: [
+          AppBar(
+            iconTheme: const IconThemeData(color: Colors.white),
+            title: const Text('FlashComm',
+                style: TextStyle(color: Colors.white)),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
           ),
-          child: Column(children: [
-            AppBar(
-              iconTheme: const IconThemeData(color: Colors.white),
-              title: const Text('FlashComm',
-                  style: TextStyle(color: Colors.white)),
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-            Expanded(
-              child: _pages[_selectedIndex],
-            ),
-          ]),
-        ),
-        drawer: Builder(
-          builder: (context) => Drawer(
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: ListView(
-                children: <Widget>[
-                  UserAccountsDrawerHeader(
-                    currentAccountPicture: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage('https://thispersondoesnotexist.com/'),
-                    ),
-                    accountName: Text("Riquelme"),
-                    accountEmail: Text("accountEmail"),
+          Expanded(
+            child: _pages[_selectedIndex],
+          ),
+        ]),
+      ),
+      drawer: Builder(
+        builder: (context) => Drawer(
+          child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: ListView(
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage('https://thispersondoesnotexist.com/'),
                   ),
-                  ListTile(
+                  accountName: Text("Riquelme"),
+                  accountEmail: Text("accountEmail"),
+                ),
+                ListTile(
                     leading: Icon(Icons.home),
                     title: Text('Início'),
                     onTap: () {
                       Navigator.pop(context);
                       _onItemTapped(0);
-                    }
-                  ),
-                  ListTile(
+                    }),
+                ListTile(
                     leading: Icon(Icons.money),
                     title: Text('Minha Turma'),
                     onTap: () {
                       Navigator.pop(context);
                       _onItemTapped(1);
-                    }
-                  ),
-                  ListTile(
+                    }),
+                ListTile(
                     leading: Icon(Icons.contact_emergency),
                     title: Text('Explore'),
                     onTap: () {
                       Navigator.pop(context);
                       _onItemTapped(2);
-                    }
-                  ),
-                  ListTile(
+                    }),
+                ListTile(
                     leading: Icon(Icons.settings),
                     title: Text('Configurações'),
                     onTap: () {
                       Navigator.pop(context);
                       _onItemTapped(3);
-                    }
-                  ),
-                ],
-              ),
+                    }),
+              ],
             ),
           ),
         ),

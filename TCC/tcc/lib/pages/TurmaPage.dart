@@ -5,8 +5,7 @@ class TurmaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Container(
+    return Container(
       child: ListView.builder(
           itemCount: 3,
           itemBuilder: (context, index) {
