@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class CardModel extends StatefulWidget {
-  
   final String pergunta;
   final String resposta;
   final VoidCallback nextCard; // Adicione esta linha
@@ -18,8 +17,7 @@ class CardModel extends StatefulWidget {
       required this.onFacilIncrement,
       required this.onMedioIncrement,
       required this.onDificilIncrement,
-      required this.onNaoSeiIncrement
-      });
+      required this.onNaoSeiIncrement});
 
   @override
   State<CardModel> createState() => _CardModelState();
@@ -60,14 +58,27 @@ class _CardModelState extends State<CardModel> {
                         height: 480,
                         child: isBack
                             ? Container(
+
                                 decoration: BoxDecoration(
-                                    color: Colors.red,
+                                  
+                                    color: Colors.grey,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3),
+                                      )
+                                    ],
                                     borderRadius: BorderRadius.circular(20)),
                                 child: Center(
                                   child: Text(
                                     widget.pergunta,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 30),
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 30),
+                                        textAlign: TextAlign.center,
                                   ),
                                 ),
                               )
@@ -76,7 +87,15 @@ class _CardModelState extends State<CardModel> {
                                 transform: Matrix4.identity()..rotateY(pi),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.blue,
+                                    color: Colors.grey[900],
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3),
+                                      )
+                                    ],
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Column(
@@ -97,31 +116,34 @@ class _CardModelState extends State<CardModel> {
                                         children: [
                                           IconButton(
                                             icon: Icon(Icons.circle,
-                                                color: Color.fromARGB(255, 88, 190, 117)),
+                                                color: Color.fromARGB(
+                                                    255, 88, 190, 117)),
                                             onPressed: () {
                                               setState(() {
                                                 widget.onFacilIncrement();
                                               });
-                                              
+
                                               _flip();
                                               widget.nextCard();
                                             },
                                           ),
                                           IconButton(
                                             icon: Icon(Icons.circle,
-                                                color: Color.fromARGB(255, 211, 216, 58)),
+                                                color: Color.fromARGB(
+                                                    255, 211, 216, 58)),
                                             onPressed: () {
                                               setState(() {
                                                 widget.onMedioIncrement();
                                               });
-                                              
+
                                               _flip();
                                               widget.nextCard();
                                             },
                                           ),
                                           IconButton(
                                             icon: Icon(Icons.circle,
-                                                color: Color.fromARGB(255, 213, 124, 7)),
+                                                color: Color.fromARGB(
+                                                    255, 213, 124, 7)),
                                             onPressed: () {
                                               setState(() {
                                                 widget.onDificilIncrement();
@@ -132,7 +154,8 @@ class _CardModelState extends State<CardModel> {
                                           ),
                                           IconButton(
                                             icon: Icon(Icons.circle,
-                                                color: const Color.fromARGB(255, 255, 0, 0)),
+                                                color: const Color.fromARGB(
+                                                    255, 255, 0, 0)),
                                             onPressed: () {
                                               setState(() {
                                                 widget.onNaoSeiIncrement();

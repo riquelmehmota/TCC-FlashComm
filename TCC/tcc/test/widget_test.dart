@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tcc/homepage.dart';
+import 'package:tcc/static/homepage.dart';
 
 
 void main() {
