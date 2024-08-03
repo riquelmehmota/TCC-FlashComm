@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tcc/StreakModel.dart';
 import 'Deck_Dados.dart';
 import 'RowDeckModel.dart';
+import 'dart:convert'; 
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

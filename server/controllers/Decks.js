@@ -3,8 +3,10 @@ const Deck = db.deck;
 
 function get_all(req, res) {
     Deck.findAll().then(decks => {
-        res.send(decks);;
+        decks = JSON.parse(JSON.stringify(decks));
+        res.send(decks);
     })
+    
 }
 
 function getbyID(req, res) {
@@ -13,6 +15,7 @@ function getbyID(req, res) {
             id: req.params.id
         }
     }).then(deck => {
+        deck = deck.toJSON();
         res.send(deck);
     });
 }
