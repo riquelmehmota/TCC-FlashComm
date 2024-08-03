@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         streak: {
-            type: Sequelize.INTEGER(1000),
+            type: Sequelize.INTEGER,
             
         },
         profile_image: {
