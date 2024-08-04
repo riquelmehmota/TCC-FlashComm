@@ -1,4 +1,6 @@
+
 const db = require('../models/db');
+const crypto = require('crypto');
 const User = db.user;
 
 
@@ -19,10 +21,14 @@ function getbyID(req, res) {
 }
 
 function register(req, res) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
   User.create({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password
+    salt: salt,
+    password: hashedPassword,
+    permission: req.body.permission, // 0 = user, 1 = admin or teacher
   }).then(user => {
     res.send('success');
   });

@@ -19,15 +19,21 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         salt: {
-            type: Sequelize.BLOB('long'),
+            type: Sequelize.STRING,
             allowNull: false
+        },
+        permissions: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0
         },
         streak: {
             type: Sequelize.INTEGER,
+            defaultValue: 0
             
         },
         profile_image: {
-            type: Sequelize.BLOB('long')
+            type: Sequelize.BLOB('long'),
+            defaultValue: null
         }, 
         
     },{

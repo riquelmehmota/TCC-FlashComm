@@ -7,7 +7,7 @@ const Users = require('../controllers/Users');
 // route.get('/logout', auth, Users.logout);
 
 //CRUD
-route.post('/register', Users.register);
+route.post('/singup', Users.register);
 route.get('/getall', Users.get_all);
 route.get('/get/:id', Users.getbyID);
 route.put('/update/:id', Users.update);
