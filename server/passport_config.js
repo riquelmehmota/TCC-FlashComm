@@ -32,8 +32,9 @@ function initialize(passport) {
     passport.use(new LocalStrategy({usernameField: 'email'}, authenticateuser));
 
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, {id: user.id, name: user.username});
     });
+    
     passport.deserializeUser(async (id, done) => {
         try {
             const user = await db.user.findByPk(id);

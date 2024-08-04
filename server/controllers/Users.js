@@ -4,14 +4,14 @@ const crypto = require('crypto');
 const User = db.user;
 
 
-function get_all(req, res) {
-  User.findAll().then(users => {
+async function get_all(req, res) {
+  await User.findAll().then(users => {
     res.send(users);
   });
 }
 
-function getbyID(req, res) {
-  User.findOne({
+async function getbyID(req, res) {
+  await User.findOne({
     where: {
       id: req.params.id
     }
@@ -29,8 +29,17 @@ function register(req, res) {
     salt: salt,
     password: hashedPassword,
     permission: req.body.permission, // 0 = user, 1 = admin or teacher
-  }).then(user => {
-    res.send('success');
+  }).then((err,User) => {
+    if (err) {return res.status(500).send("There was a problem registering the user.")}
+    var user = {
+      id: User.id,
+      username: req.body.username
+    };
+
+    req.login(user, function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
   });
 }
 
