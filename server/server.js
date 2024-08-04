@@ -7,7 +7,7 @@ const Decks = require('./routes/Decks');
 const Cards = require('./routes/Cards');
 const cors = require('cors');
 
-// authentication settings
+// authentication imports
 const passport = require('passport');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-
+//Authentication settings
 initializePassport(passport);
 app.use(session({
     secret: 'keyboard',
@@ -49,7 +49,11 @@ app.post('/login', passport.authenticate('local', {
     successMessage: 'Logged in',
     failureMessage: 'Failed to log in',
 }), (req, res) => {
-    res.send(req.user)
+    if (req.isAuthenticated()) {
+        res.send(req.user)
+    }
+    res.send(req.message);
+   
 });
 
 app.get('/test', (req, res) => {

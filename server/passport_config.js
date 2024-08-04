@@ -19,12 +19,12 @@ function initialize(passport) {
     const authenticateuser = async (email, password, done) => {
         const user = await db.user.findOne({ where: { email: email } });
         if (user == null) {
-            return done(null, false, { message: 'No user with that email' });
+            return done(null, { message: 'No user with that email' });
         }
        
         const hashedPassword = crypto.pbkdf2Sync(password, user.salt, 310000, 32, 'sha256').toString('hex');
         if (user.password !== hashedPassword) {
-            return done(null, false, { message: 'Incorrect username or password.' });
+            return done(null, { message: 'Incorrect username or password.' });
         }
         return done(null, user);
     
