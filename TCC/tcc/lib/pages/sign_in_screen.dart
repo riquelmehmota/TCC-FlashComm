@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool isPasswordVisible = false;
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,17 +45,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(32.0),
                       child: Column(
                         children: [
-                          Text("Vamos começar!",
-                              style: TextStyle(
-                                  fontSize: 32, fontWeight: FontWeight.bold)),
+                          Row(
+                            children: [
+                              GestureDetector(child: Icon(Icons.arrow_back, color: Colors.grey, size: 32), onTap: () {
+                                Navigator.pop(context);
+                              },),
+                              Text("Voltar para o login",
+                                  style: TextStyle(
+                                      fontSize: 24, fontWeight: FontWeight.bold)),
+                            ],
+                          ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 12, 0, 24),
-                            child: Text(
-                              "Começe preenchendo os campos abaixo",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.grey),
-                              textAlign: TextAlign.center,
-                            ),
+                            child: Text("Começe preenchendo os campos abaixo",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.grey), textAlign: TextAlign.center,),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
@@ -77,17 +80,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.only(bottom: 16),
                             child: TextField(
                               decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: Icon(isPasswordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off),
-                                    onPressed: () {
-                                      setState(() {
-                                        isPasswordVisible = !isPasswordVisible;
-                                      });
-                                    },
-                                  ),
-                                  
                                   labelText: "Senha",
                                   fillColor: Colors.grey,
                                   labelStyle: TextStyle(
@@ -97,7 +89,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.grey))),
-                              obscureText: !isPasswordVisible,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  labelText: "Confirme a senha",
+                                  fillColor: Colors.grey,
+                                  labelStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey))),
                             ),
                           ),
                           Padding(
@@ -110,16 +116,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.pushNamed(context, '/home');
                                 },
                                 child: Text(
-                                  "Entrar",
+                                  "Cadastrar",
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                                 ),
                                 style: ButtonStyle(
-                                  backgroundColor: WidgetStateProperty.all<
-                                          Color>(
-                                      const Color.fromARGB(255, 75, 57, 239)),
+                                  backgroundColor:
+                                      WidgetStateProperty.all<Color>(
+                                          const Color.fromARGB(255, 75, 57, 239)),
                                 ),
                               ),
                             ),
@@ -137,20 +141,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 44,
                               child: ElevatedButton(
                                 onPressed: () {},
+
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.g_mobiledata_outlined,
-                                        color: Colors.grey[800]),
+                                    Icon(Icons.g_mobiledata_outlined, color: Colors.grey[800]),
                                     Text(
                                       "Entrar com Google",
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey[800]),
+                                          fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800]),
                                     ),
                                   ],
                                 ),
+                                
                                 style: ButtonStyle(
                                   backgroundColor:
                                       WidgetStateProperty.all<Color>(
@@ -169,14 +172,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.facebook,
-                                        color: Colors.grey[800]),
+                                    Icon(Icons.facebook, color: Colors.grey[800]),
                                     Text(
                                       "Continuar com Apple",
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey[800]),
+                                          fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800]),
                                     ),
                                   ],
                                 ),
@@ -188,26 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Não tem uma conta?",
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.grey)),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, '/signup');
-                                    },
-                                    child: Text("Cadastre-se",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color: const Color.fromARGB(
-                                                255, 75, 57, 239))),
-                                  )
-                                ],
-                              )),
+                          
+                          
                         ],
                       ),
                     ),
