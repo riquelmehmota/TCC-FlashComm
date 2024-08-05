@@ -18,7 +18,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         interval: {
-            type: Sequelize.DATE
+            type: Sequelize.INTEGER,
+            defaultValue: 0
         },
     },{
         timestamps: false

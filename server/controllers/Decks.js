@@ -1,8 +1,9 @@
+const { Association } = require('sequelize');
 const db = require('../models/db');
 const Deck = db.deck;
 
 function get_all(req, res) {
-    Deck.findAll().then(decks => {
+    Deck.findAll({include: 'card'}).then(decks => {
         decks = JSON.parse(JSON.stringify(decks));
         res.send(decks);
     })
@@ -23,8 +24,17 @@ function getbyID(req, res) {
 function create(req, res) {
     Deck.create({
         name: req.body.name,
-        cards: req.body.cards
-    }).then(deck => {
+        cards: [{
+            front: req.body.front,
+            back: req.body.back
+        }]
+    },
+    {
+        include: [{
+            association: [db.card]
+        }]
+    }
+).then(deck => {
         res.send('success');
     });
 }

@@ -5,7 +5,7 @@ const User = db.user;
 
 
 async function get_all(req, res) {
-  await User.findAll().then(users => {
+  await User.findAll({include: 'turma'}).then(users => {
     res.send(users);
   });
 }
