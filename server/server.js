@@ -29,7 +29,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: new MySQLStore({
-        database: 'tcc',
+        database: 'tccbd',
         user: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
         host: 'localhost',
@@ -53,7 +53,7 @@ app.post('/login', passport.authenticate('local', {
         res.send(req.user)
     }
     res.send(req.message);
-   
+    
 });
 
 
