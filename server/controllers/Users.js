@@ -37,7 +37,7 @@ async function register(req, res) {
 
     req.login(user, function(err) {
       if (err) { return next(err); }
-      res.send('success');
+      res.send(user);
     });
   });
 }
