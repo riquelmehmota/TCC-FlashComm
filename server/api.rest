@@ -1,4 +1,11 @@
-POST  http://localhost:3000/logout
+POST  http://localhost:3000/users/singup
+Content-Type: application/json
+
+{
+    "username": "w",
+    "email": "w@w",
+    "password": "123456"
+}
 
 
 

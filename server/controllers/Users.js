@@ -29,12 +29,10 @@ async function register(req, res) {
     email: req.body.email,
     salt: salt,
     password: hashedPassword,
-  }).then((err,User) => {
-    
-    if (err) {return res.status(500).send("There was a problem registering the user.")}
+  }).then((User) => {
     var user = {
       id: User.id,
-      username: req.body.username
+      username: User.username
     };
 
     req.login(user, function(err) {
