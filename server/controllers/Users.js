@@ -1,6 +1,8 @@
 
+const { profile } = require('console');
 const db = require('../models/db');
 const crypto = require('crypto');
+const e = require('express');
 const fs = require('fs').promises;
 const User = db.user;
 const path = require('path');
@@ -25,12 +27,18 @@ async function getbyID(req, res) {
 async function register(req, res) {
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
+  
   if (!req.file && req.file.mimetype.startsWith('image/')) {
     return res.status(400).send('Please upload a valid image file');
   }
-  const profileImagePath = path.join(__dirname, '../assets/img', req.file.filename);
-  const profileImage = fs.readFile(profileImagePath);
-
+  
+  try {
+    const profileImagePath = path.join(__dirname, '../assets/img', req.file.filename);
+    const profileImage = fs.readFile(profileImagePath);
+  } catch (err) {
+    profileImage = null
+  }
+ 
   await User.create({
     username: req.body.username,
     email: req.body.email,
@@ -58,6 +66,17 @@ async function register(req, res) {
 }
 
 function update(req, res) {
+  if (!req.file && req.file.mimetype.startsWith('image/')) {
+    return res.status(400).send('Please upload a valid image file');
+  }
+  
+  try {
+    const profileImagePath = path.join(__dirname, '../assets/img', req.file.filename);
+    const profileImage = fs.readFile(profileImagePath);
+  } catch (err) {
+    profileImage = null
+  }
+  
   User.update({
     username: req.body.username,
     email: req.body.email,

@@ -1,11 +1,10 @@
 POST  http://localhost:3000/users/singup
-Content-Type: multipart/form-data
+Content-Type: application/json
 
 {
     "username": "w",
     "email": "12323@2312",
-    "password": "123456",
-    "profile_image": ""
+    "password": "123456"
     
 }
 

@@ -11,7 +11,7 @@ const upload = require('../tools/multer');
 route.post('/singup', upload.single('profile_image'), Users.register);
 route.get('/', Users.get_all);
 route.get('/:id', Users.getbyID);
-route.put('/update/:id', Users.update);
+route.put('/update/:id', upload.single('profile_image'),Users.update);
 route.delete('/delete/:id', Users.remove);
 
 module.exports = route;
