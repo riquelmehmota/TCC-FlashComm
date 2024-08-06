@@ -34,7 +34,7 @@ async function register(req, res) {
   
   try {
     const profileImagePath = path.join(__dirname, '../assets/img', req.file.filename);
-    const profileImage = fs.readFile(profileImagePath);
+    var profileImage = fs.readFile(profileImagePath);
   } catch (err) {
     profileImage = null
   }
@@ -76,7 +76,7 @@ function update(req, res) {
   } catch (err) {
     profileImage = null
   }
-  
+
   User.update({
     username: req.body.username,
     email: req.body.email,
