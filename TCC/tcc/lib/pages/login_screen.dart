@@ -9,6 +9,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isPasswordVisible = false;
+  String email = "";
+  String password = "";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,6 +63,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: TextField(
+                              onChanged: (temp) {
+                                setState(() {
+                                  email = temp;
+                                });
+                              },
                               decoration: InputDecoration(
                                   labelText: "Email",
                                   fillColor: Colors.grey,
@@ -76,6 +83,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: TextField(
+                              onChanged: (temp) {
+                                setState(() {
+                                  print(temp);
+                                  password = temp;
+                                });
+                              },
                               decoration: InputDecoration(
                                   suffixIcon: IconButton(
                                     icon: Icon(isPasswordVisible

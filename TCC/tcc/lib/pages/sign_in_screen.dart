@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -7,7 +8,32 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
+
+
 class _SignUpScreenState extends State<SignUpScreen> {
+  Future<void> registerUser(String username, String email, String password) async {
+    final response = await http.post(
+      Uri.parse('http://localhost:3000/users/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username,
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      print('User registered successfully');
+      Navigator.pushNamed(context, '/home'); // Redireciona para a página inicial após o cadastro
+    } else {
+      print('Failed to register user');
+    }
+  }
+  String email = '';
+  String senha = '';
+  String confirmarSenha = '';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -64,6 +90,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: TextField(
+                              onChanged: (tmp){
+                                setState(() {
+                                  email = tmp;
+                                });
+                              },
                               decoration: InputDecoration(
                                   labelText: "Email",
                                   fillColor: Colors.grey,
@@ -79,6 +110,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: TextField(
+                              onChanged: (tmp){
+                                setState(() {
+                                  senha = tmp;
+                                });
+                              },
                               decoration: InputDecoration(
                                   labelText: "Senha",
                                   fillColor: Colors.grey,
@@ -94,6 +130,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: TextField(
+                              onChanged: (tmp){
+                                setState(() {
+                                  confirmarSenha = tmp;
+                                });
+                              },
                               decoration: InputDecoration(
                                   labelText: "Confirme a senha",
                                   fillColor: Colors.grey,
