@@ -1,5 +1,6 @@
 const route = require('express').Router();
 const Users = require('../controllers/Users');
+const upload = require('../tools/multer');
 
 // Authentication
 // route.post('/login', Users.login);
@@ -7,7 +8,7 @@ const Users = require('../controllers/Users');
 // route.get('/logout', auth, Users.logout);
 
 //CRUD
-route.post('/singup', Users.register);
+route.post('/singup', upload.single('profile_image'), Users.register);
 route.get('/', Users.get_all);
 route.get('/:id', Users.getbyID);
 route.put('/update/:id', Users.update);

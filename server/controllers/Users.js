@@ -1,7 +1,9 @@
 
 const db = require('../models/db');
 const crypto = require('crypto');
+const fs = require('fs');
 const User = db.user;
+const path = require('path');
 
 
 async function get_all(req, res) {
@@ -20,20 +22,34 @@ async function getbyID(req, res) {
   });
 }
 
-function register(req, res) {
+async function register(req, res) {
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
-  User.create({
+  if (!req.file && req.file.mimetype.startsWith('image/')) {
+    return res.status(400).send('Please upload a valid image file');
+  }
+  const profileImagePath = path.join(__dirname, '../uploads/', req.file.filename);
+  const profileImage = fs.readFile(profileImagePath);
+
+  await User.create({
     username: req.body.username,
     email: req.body.email,
     salt: salt,
     password: hashedPassword,
+    profile_image: profileImage
+    
   }).then((User) => {
     var user = {
       id: User.id,
       username: User.username
     };
-
+    if (req.isAuthenticated()) {
+      req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+      });
+    }
     req.login(user, function(err) {
       if (err) { return next(err); }
       res.send(user);

@@ -6,8 +6,8 @@ const storage = multer.diskStorage({
         cb(null, 'assets/img');
     },
     filename: function (req, file, cb) {
-        const ext = file.minetype.split('/')[1];
-        cb(null, `assets/img/${file.originalname}-${Date.now()}.${ext}`);
+        const ext = file.mimetype.split('/')[1];
+        cb(null, `${file.originalname}-${Date.now()}.${ext}`);
     }
 });
 
