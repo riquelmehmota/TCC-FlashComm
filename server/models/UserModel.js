@@ -25,7 +25,6 @@ module.exports = (sequelize, Sequelize) => {
         streak: {
             type: Sequelize.INTEGER,
             defaultValue: 0
-            
         },
         profile_image: {
             type: Sequelize.BLOB('long'),
