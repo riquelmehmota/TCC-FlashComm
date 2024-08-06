@@ -225,7 +225,7 @@ class Resultados extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return HomePage();
+                        return HomePage(id: 2);
                       },
                     ),
                   );

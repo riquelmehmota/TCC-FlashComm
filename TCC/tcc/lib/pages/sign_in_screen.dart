@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:tcc/static/HomePage.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
-
-
 
 class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> registerUser(String username, String email, String password) async {
@@ -26,14 +25,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       
     );
-    print(response.statusCode);
     if (response.statusCode == 201 || response.statusCode == 200) {
       print('User registered successfully');
-      Navigator.pushNamed(context, '/home'); // Redireciona para a página inicial após o cadastro
+      print(jsonDecode(response.body)['id']);
+      //navigate without route
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(id: jsonDecode(response.body)['id']))); 
     } else {
       print('Failed to register user');
     }
   }
+
+  
   String email = '';
   String password = '';
   String username = 'teste';

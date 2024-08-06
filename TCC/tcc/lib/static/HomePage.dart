@@ -3,16 +3,25 @@ import 'package:tcc/pages/Configura%C3%A7%C3%B5esPage.dart';
 import 'package:tcc/pages/ExplorePage.dart';
 import 'package:tcc/pages/InicioPage.dart';
 import 'package:tcc/pages/TurmaPage.dart';
-
+import 'package:tcc/User.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  
+  final int id;
+  
+  const HomePage({super.key, required this.id});
 
   @override
   State<HomePage> createState() => _HomePageState();
+  
 }
 
 class _HomePageState extends State<HomePage> {
+  
+  
   int _selectedIndex = 0;
+  
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -27,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void _FormsAdd(BuildContext context) {
+    
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -101,10 +111,29 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+    
   }
-
+  User user = User('', '', '');
+  Future<void> _getUser() async {
+  try {
+    final response = await http.get(
+      Uri.parse('http://192.168.4.109:3000/users/${widget.id}'),
+    );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        user = User(data['id'].toString(), data['username'], data['email']);
+      });
+    } else {
+      print('Failed to load user data');
+    }
+  } catch (e) {
+    print('Error: $e');
+  }
+}
   @override
   Widget build(BuildContext context) {
+    _getUser();
     return Scaffold(
       floatingActionButton: _selectedIndex == 1
           ? FloatingActionButton(
@@ -143,8 +172,8 @@ class _HomePageState extends State<HomePage> {
                     backgroundImage:
                         NetworkImage('https://thispersondoesnotexist.com/'),
                   ),
-                  accountName: Text("User", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                  accountEmail: Text("useremail@email.com", style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
+                  accountName: Text(user.username, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                  accountEmail: Text(user.email, style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
                 ),
                 ListTile(
                     leading: Icon(Icons.home),
