@@ -30,7 +30,7 @@ async function register(req, res) {
   }
   const profileImagePath = path.join(__dirname, '../uploads/', req.file.filename);
   const profileImage = fs.readFile(profileImagePath);
-  
+
   await User.create({
     username: req.body.username,
     email: req.body.email,
@@ -57,18 +57,18 @@ async function register(req, res) {
   });
 }
 
-async function update(req, res) {
-  const user = await User.findOne({where: {id: req.params.id} })
-  User.username = req.body.username || User.username,
-  User.email = req.body.email || User.email,
-  User.password = req.body.password || User.password,
-  User.permission = req.body.permission || User.permission,
-  User.streak = req.body.streak || User.streak,
-  User.profile_image = req.body.profile_image || User.profile_image
-  await User.save().then(() => {
+function update(req, res) {
+  User.update({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  }, {
+    where: {
+      id: req.params.id
+    }
+  }).then(() => {
     res.send('success');
   });
-  
 }
 
 function remove(req, res) {
