@@ -13,10 +13,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> registerUser(String username, String email, String password) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/users/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
+      Uri.parse('http://localhost:3000/users/singup'),
       body: jsonEncode(<String, String>{
         'username': username,
         'email': email,
@@ -33,8 +30,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
   String email = '';
   String senha = '';
+  String username = 'teste';
   String confirmarSenha = '';
+  //senha invalida componente
+  
+  void _senhaInvalida(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Senha inválida'),
+          content: const Text('As senhas não coincidem'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  
+  }
+  
   @override
+  
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -154,7 +176,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               height: 44,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/home');
+                                  if(senha == confirmarSenha){
+                                    registerUser(username, email, senha);
+                                  }
+                                  else{
+                                    return _senhaInvalida();
+                                  }
+
                                 },
                                 child: Text(
                                   "Cadastrar",
