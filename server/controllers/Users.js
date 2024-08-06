@@ -1,7 +1,7 @@
 
 const db = require('../models/db');
 const crypto = require('crypto');
-const fs = require('fs');
+const fs = require('fs').promises;
 const User = db.user;
 const path = require('path');
 
@@ -28,7 +28,7 @@ async function register(req, res) {
   if (!req.file && req.file.mimetype.startsWith('image/')) {
     return res.status(400).send('Please upload a valid image file');
   }
-  const profileImagePath = path.join(__dirname, '../uploads/', req.file.filename);
+  const profileImagePath = path.join(__dirname, '../assets/img', req.file.filename);
   const profileImage = fs.readFile(profileImagePath);
 
   await User.create({
