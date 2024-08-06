@@ -22,10 +22,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        permissions: {
-            type: Sequelize.INTEGER,
-            defaultValue: 0
-        },
         streak: {
             type: Sequelize.INTEGER,
             defaultValue: 0

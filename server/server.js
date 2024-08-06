@@ -56,13 +56,6 @@ app.post('/login', passport.authenticate('local', {
    
 });
 
-app.get('/test', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.send('You are authenticated:' + req.user);
-    } else {
-        res.send('You are not authenticated');
-    }
-});
 
 app.post('/logout', (req, res, next) => {
     req.logout((err) => {
