@@ -13,15 +13,21 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   Future<void> registerUser(String username, String email, String password) async {
     final response = await http.post(
+      
       Uri.parse('http://localhost:3000/users/singup'),
       body: jsonEncode(<String, String>{
         'username': username,
         'email': email,
         'password': password,
       }),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'accept': 'multipart/form-data',
+      },
+      
     );
-
-    if (response.statusCode == 201) {
+    print(response.statusCode);
+    if (response.statusCode == 201 || response.statusCode == 200) {
       print('User registered successfully');
       Navigator.pushNamed(context, '/home'); // Redireciona para a página inicial após o cadastro
     } else {
@@ -29,9 +35,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
   String email = '';
-  String senha = '';
+  String password = '';
   String username = 'teste';
-  String confirmarSenha = '';
+  String confirmpassword = '';
   //senha invalida componente
   
   void _senhaInvalida(){
@@ -134,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: TextField(
                               onChanged: (tmp){
                                 setState(() {
-                                  senha = tmp;
+                                  password = tmp;
                                 });
                               },
                               decoration: InputDecoration(
@@ -154,7 +160,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: TextField(
                               onChanged: (tmp){
                                 setState(() {
-                                  confirmarSenha = tmp;
+                                  confirmpassword = tmp;
                                 });
                               },
                               decoration: InputDecoration(
@@ -176,8 +182,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               height: 44,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  if(senha == confirmarSenha){
-                                    registerUser(username, email, senha);
+                                  if(password == confirmpassword){
+                                    registerUser(username, email, password);
                                   }
                                   else{
                                     return _senhaInvalida();
