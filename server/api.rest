@@ -5,6 +5,7 @@ Content-Type: application/json
     "username": "w",
     "email": "12323@2312",
     "password": "123456"
+    
 }
 
 
