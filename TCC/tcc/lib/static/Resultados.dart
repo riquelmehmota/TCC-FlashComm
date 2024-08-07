@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/static/HomePage.dart';
 import 'dart:math';
-
+import 'package:tcc/User.dart';
 class Resultados extends StatelessWidget {
   final int facil;
   final int medio;
@@ -225,7 +225,7 @@ class Resultados extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return HomePage(id: 2);
+                        return HomePage();
                       },
                     ),
                   );

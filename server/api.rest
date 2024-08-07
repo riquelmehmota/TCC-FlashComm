@@ -1,12 +1,10 @@
 POST  http://localhost:3000/users/singup
-Content-Type: multipart/form-data
+Content-Type: application/json
 
 {
     "username": "w",
     "email": "12323@2312",
-    "password": "123456",
-    "profile_image": "https://res.cloudinary.com/practicaldev/image/fetch/s--1IVUlLIE--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0xohhzcmvgaciujhx5fu.png"
-    
+    "password": "123456"
 }
 
 

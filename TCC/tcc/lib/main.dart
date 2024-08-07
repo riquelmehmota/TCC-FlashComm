@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/models/user_model.dart';
 import 'package:tcc/pages/login_screen.dart';
 import 'package:tcc/pages/sign_in_screen.dart';
-import 'package:tcc/static/HomePage.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserModel(),
+      child: MyApp(),
+    ),
+  );
 }
+
+
 
 class MyApp extends StatelessWidget {
   

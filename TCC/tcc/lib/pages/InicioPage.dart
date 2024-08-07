@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/User.dart';
 import 'package:tcc/static/RowDeckModel.dart';
 import 'package:tcc/static/StreakModel.dart';
 import '../Deck_Dados.dart';
 
 class InicioPage extends StatefulWidget {
-  const InicioPage({super.key});
+
+  final User user;
+
+  const InicioPage({super.key, required this.user});
 
   @override
   State<InicioPage> createState() => _InicioPageState();
@@ -26,6 +30,7 @@ class _InicioPageState extends State<InicioPage> {
                   itemBuilder: (context, index) {
                     final deck = decks[index];
                     return RowDeckModel(
+                      
                       nome: deck['nome_do_deck'],
                       quantidade: deck['quantidade_de_cartas'],
                       index: index,

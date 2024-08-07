@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:provider/provider.dart';
 import 'package:tcc/static/HomePage.dart';
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -10,31 +9,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  Future<void> registerUser(String username, String email, String password) async {
-    final response = await http.post(
-      
-      Uri.parse('http://localhost:3000/users/singup'),
-      body: jsonEncode(<String, String>{
-        'username': username,
-        'email': email,
-        'password': password,
-      }),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'accept': 'multipart/form-data',
-      },
-      
-    );
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      print('User registered successfully');
-      print(jsonDecode(response.body)['id']);
-      //navigate without route
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(id: jsonDecode(response.body)['id']))); 
-    } else {
-      print('Failed to register user');
-    }
-  }
-
   
   String email = '';
   String password = '';
@@ -185,7 +159,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if(password == confirmpassword){
-                                    registerUser(username, email, password);
+                                    Provider.of(context, listen: false).addUser(email, password);
+                                     Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => HomePage()),
+                                    );
                                   }
                                   else{
                                     return _senhaInvalida();

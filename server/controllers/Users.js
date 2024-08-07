@@ -25,18 +25,18 @@ async function getbyID(req, res) {
 async function register(req, res) {
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
-  if (!req.file && req.file.mimetype.startsWith('image/')) {
-    return res.status(400).send('Please upload a valid image file');
-  }
-  const profileImagePath = path.join(__dirname, '../uploads/', req.file.filename);
-  const profileImage = fs.readFile(profileImagePath);
+  // if (!req.file && req.file.mimetype.startsWith('image/')) {
+  //   return res.status(400).send('Please upload a valid image file');
+  // }
+  // const profileImagePath = path.join(__dirname, '../uploads/', req.file.filename);
+  // const profileImage = fs.readFile(profileImagePath);
 
   await User.create({
     username: req.body.username,
     email: req.body.email,
     salt: salt,
     password: hashedPassword,
-    profile_image: profileImage
+    profile_image: null
     
   }).then((User) => {
     var user = {
