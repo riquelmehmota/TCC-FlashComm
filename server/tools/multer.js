@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         if(!file) {
-            cb(null, true);
+            cb(new Error('No file provided'), false);
         }
         const ext = file.mimetype.split('/')[1];
         cb(null, `${file.originalname}-${Date.now()}.${ext}`);
