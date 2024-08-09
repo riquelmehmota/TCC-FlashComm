@@ -1,12 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tcc/pages/Configura%C3%A7%C3%B5esPage.dart';
 import 'package:tcc/pages/ExplorePage.dart';
 import 'package:tcc/pages/InicioPage.dart';
 import 'package:tcc/pages/TurmaPage.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tcc/models/user_model.dart'; // Importar sua classe de estado
-import 'package:tcc/User.dart'; // Importar sua classe de usuário
+
 class HomePage extends StatefulWidget {
   
   
@@ -28,6 +27,7 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
+  
 
   final List<Widget> _pages = [
     TurmaPage(),
@@ -119,7 +119,6 @@ class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
-    User? user = Provider.of<UserModel>(context).user;
     return Scaffold(
       floatingActionButton: _selectedIndex == 1
           ? FloatingActionButton(
@@ -155,11 +154,11 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage('https://thispersondoesnotexist.com/'),
+                    backgroundImage:  
+                      MemoryImage(Uint8List.view(_image)),
                   ),
-                  accountName: (Text(user.username, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold))),
-                  accountEmail: Text(user.email, style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
+                  accountName: Text("User", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                  accountEmail: Text("useremail@email.com", style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
                 ),
                 ListTile(
                     leading: Icon(Icons.home),

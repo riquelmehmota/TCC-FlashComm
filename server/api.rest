@@ -1,12 +1,5 @@
-POST  http://localhost:3000/users/singup
-Content-Type: application/json
+GET http://localhost:3000/users/image/1
 
-{
-    "username": "w",
-    "email": "12323@2312",
-    "password": "123456"
-    
-}
 
 
 

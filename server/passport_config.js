@@ -37,7 +37,7 @@ function initialize(passport) {
     
     passport.deserializeUser(async (id, done) => {
         try {
-            const user = await db.user.findByPk(id);
+            const user = await db.user.findByPk(id.id);
             if (!user) {
                 return done(new Error('User not found'));
             }

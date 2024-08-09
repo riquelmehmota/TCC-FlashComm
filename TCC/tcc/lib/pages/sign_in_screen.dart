@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/static/HomePage.dart';
+import 'package:tcc/Providers/user_provider.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -9,7 +10,29 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  
+  // Future<void> registerUser(String username, String email, String password) async {
+  //   final response = await http.post(
+      
+  //     Uri.parse('http://localhost:3000/users/singup'),
+  //     body: jsonEncode(<String, String>{
+  //       'username': username,
+  //       'email': email,
+  //       'password': password,
+  //     }),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //       'accept': 'multipart/form-data',
+  //     },
+      
+  //   );
+  //   print(response.statusCode);
+  //   if (response.statusCode == 201 || response.statusCode == 200) {
+  //     print('User registered successfully');
+  //     Navigator.pushNamed(context, '/home'); // Redireciona para a página inicial após o cadastro
+  //   } else {
+  //     print('Failed to register user');
+  //   }
+  // }
   String email = '';
   String password = '';
   String username = 'teste';
@@ -52,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Color.fromARGB(255, 75, 57, 239),
               const Color.fromARGB(255, 238, 139, 96)
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-            child: Column(
+            child: ListView( children: [Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -159,11 +182,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if(password == confirmpassword){
-                                    Provider.of(context, listen: false).addUser(email, password);
-                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => HomePage()),
-                                    );
+
+                                    Provider.of<UserProvider>(context, listen: false).registerUser(username, email, password);
+                                    Navigator.pushNamed(context, '/home');
                                   }
                                   else{
                                     return _senhaInvalida();
@@ -246,10 +267,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           
                           
                         ],
-                      ),
+                      )),
                     ),
                   ),
-                )
+            ])
               ],
             ),
           ))

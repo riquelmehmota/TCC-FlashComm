@@ -25,7 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
               Color.fromARGB(255, 75, 57, 239),
               const Color.fromARGB(255, 238, 139, 96)
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-            child: Column(
+            child: ListView(
+            children: [Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -227,7 +228,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 )
               ],
-            ),
+            ),]
+            )
           ))
         ],
       )),

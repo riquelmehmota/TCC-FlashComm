@@ -1,5 +1,4 @@
-
-const { profile } = require('console');
+// Initialize express router
 const db = require('../models/db');
 const crypto = require('crypto');
 const e = require('express');
@@ -24,19 +23,31 @@ async function getbyID(req, res) {
   });
 }
 
+async function get_image(req, res) {
+  var user = await User.findOne({
+    where: {
+      id: req.params.id
+    }
+  });
+  console.log(user.dataValues.profile_image);
+  res.send(user.dataValues.profile_image);
+  
+}
+
 async function register(req, res) {
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
   
-  if (!req.file && req.file.mimetype.startsWith('image/')) {
-    return res.status(400).send('Please upload a valid image file');
-  }
   
   try {
+    if (!req.file.mimetype.startsWith('image/')) {
+      return res.status(400).send('Please upload a valid image file');
+    }
+    
     const profileImagePath = path.join(__dirname, '../assets/img', req.file.filename);
-    var profileImage = fs.readFile(profileImagePath);
+    var profileImage = await fs.readFile(profileImagePath);
   } catch (err) {
-    profileImage = null
+    profileImage = await fs.readFile(path.join(__dirname, '../assets/img/Default_pfp.jpg'));
   }
  
   await User.create({
@@ -47,19 +58,14 @@ async function register(req, res) {
     profile_image: profileImage
     
   }).then((User) => {
-    var user = {
+    let user = {
       id: User.id,
-      username: User.username
+      username: User.username,
     };
-    if (req.isAuthenticated()) {
-      req.logout((err) => {
-        if (err) {
-            return next(err);
-        }
-      });
-    }
-    req.login(user, function(err) {
-      if (err) { return next(err); }
+    req.login(user, (err) => {
+      if (err) {
+        return res.status(400).send('Failed to log in');
+      }
       res.send(user);
     });
   });
@@ -103,6 +109,7 @@ function remove(req, res) {
 module.exports = {
     get_all,
     getbyID,
+    get_image,
     register,
     update,
     remove

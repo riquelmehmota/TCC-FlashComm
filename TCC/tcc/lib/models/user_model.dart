@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:tcc/User.dart';
 
-class UserModel{
-  String name;
-  String email;
-  String password;
-  String username;
-  String id;
+class User {
+  final int id;
+  final String username;
+  final String email;
 
-  UserModel({required this.name, required this.email, required this.password, required this.username, required this.id});
+  User(this.id, this.username, this.email);
 
-  
 }
