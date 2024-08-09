@@ -23,6 +23,17 @@ async function getbyID(req, res) {
   });
 }
 
+async function get_image(req, res) {
+  var user = await User.findOne({
+    where: {
+      id: req.params.id
+    }
+  });
+  console.log(user.dataValues.profile_image);
+  res.send(user.dataValues.profile_image);
+  
+}
+
 async function register(req, res) {
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
@@ -55,6 +66,7 @@ async function register(req, res) {
       if (err) {
         return res.status(400).send('Failed to log in');
       }
+      res.send(user);
     });
   });
 }
@@ -97,6 +109,7 @@ function remove(req, res) {
 module.exports = {
     get_all,
     getbyID,
+    get_image,
     register,
     update,
     remove

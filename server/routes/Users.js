@@ -13,5 +13,6 @@ route.get('/', Users.get_all);
 route.get('/:id', Users.getbyID);
 route.put('/update/:id', upload.single('profile_image'),Users.update);
 route.delete('/delete/:id', Users.remove);
+route.get('/image/:id', Users.get_image);
 
 module.exports = route;

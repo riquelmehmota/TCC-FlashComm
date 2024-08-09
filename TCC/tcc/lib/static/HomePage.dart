@@ -1,8 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tcc/pages/Configura%C3%A7%C3%B5esPage.dart';
 import 'package:tcc/pages/ExplorePage.dart';
 import 'package:tcc/pages/InicioPage.dart';
 import 'package:tcc/pages/TurmaPage.dart';
+import 'package:tcc/Providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +22,7 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
+  
 
   final List<Widget> _pages = [
     InicioPage(),
@@ -105,6 +110,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _user = Provider.of<UserProvider>(context).user;
+    String _username = Provider.of<UserProvider>(context).user.username;
+    String _email = Provider.of<UserProvider>(context).user.email;
+    Provider.of<UserProvider>(context).imageUser(_user.id);
+    final _image = Provider.of<UserProvider>(context).image;
+
     return Scaffold(
       floatingActionButton: _selectedIndex == 1
           ? FloatingActionButton(
@@ -140,11 +151,11 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage('https://thispersondoesnotexist.com/'),
+                    backgroundImage:  
+                      MemoryImage(Uint8List.view(_image)),
                   ),
-                  accountName: Text("User", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                  accountEmail: Text("useremail@email.com", style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
+                  accountName: Text(_username, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                  accountEmail: Text(_email, style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
                 ),
                 ListTile(
                     leading: Icon(Icons.home),
