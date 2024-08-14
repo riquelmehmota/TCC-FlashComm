@@ -29,8 +29,6 @@ async function get_image(req, res) {
       id: req.params.id
     }
   });
-  console.log(user.dataValues.profile_image);
-  res.send(user.dataValues.profile_image);
   
 }
 

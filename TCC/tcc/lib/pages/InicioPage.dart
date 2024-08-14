@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/User.dart';
+import 'package:tcc/providers/user_provider.dart';
+import 'package:tcc/models/user_model.dart';
 import 'package:tcc/static/RowDeckModel.dart';
 import 'package:tcc/static/StreakModel.dart';
+import 'package:provider/provider.dart';
 import '../Deck_Dados.dart';
 
 class InicioPage extends StatefulWidget {
 
-  final User user;
 
-  const InicioPage({super.key, required this.user});
+  const InicioPage({super.key});
 
   @override
   State<InicioPage> createState() => _InicioPageState();

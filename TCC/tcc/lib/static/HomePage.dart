@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   
 
   final List<Widget> _pages = [
+    InicioPage(),
     TurmaPage(),
     ExplorePage(),
     ConfiguracoesPage()
@@ -121,10 +122,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final _user = Provider.of<UserProvider>(context).user;
-    String _username = Provider.of<UserProvider>(context).user.username;
-    String _email = Provider.of<UserProvider>(context).user.email;
-    Provider.of<UserProvider>(context).imageUser(_user.id);
+    String _username = _user.username;
+    String _email = _user.email;
     final _image = Provider.of<UserProvider>(context).image;
+     
 
     return Scaffold(
       floatingActionButton: _selectedIndex == 1
@@ -162,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                 UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
                     backgroundImage:  
-                      MemoryImage(Uint8List.view(_image)),
+                      Image.network('http://thispersondoesnotexist.com').image,
                   ),
                   accountName: Text(_username, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
                   accountEmail: Text(_email, style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),

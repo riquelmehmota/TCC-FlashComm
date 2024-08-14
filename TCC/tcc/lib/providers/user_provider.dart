@@ -14,7 +14,7 @@ class UserProvider extends ChangeNotifier {
   Future<void> registerUser(String username, String email, String password) async {
     final response = await http.post(
       
-      Uri.parse('http://192.168.100.6:3000/users/singup'),
+      Uri.parse('http://192.168.247.251:3000/users/singup'),
       body: jsonEncode(<String, String>{
         'username': username,
         'email': email,
@@ -30,6 +30,7 @@ class UserProvider extends ChangeNotifier {
       print('User registered successfully');
       final responseJson = json.decode(response.body);
       _user = User(responseJson['id'], responseJson['username'], email);
+      imageUser(responseJson['id']);
       notifyListeners();
     } else {
       print('Failed to register user');
@@ -65,7 +66,7 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> imageUser(int id) async {
     final response = await http.get(
-      Uri.parse('http://192.168.100.6:3000/users/image/${id}'),
+      Uri.parse('http://192.168.247.251:3000/users/image/${id}'),
       
     );
     print(response.statusCode);
