@@ -1,21 +1,38 @@
 
-class Users {
-  final List users;
-  Users(this.users);
-}
-
 class User {
-  final String id;
+  int id;  // Adicionado campo ID
   final String username;
   final String email;
-
-  User(this.id, this.username, this.email);
-
+  final String password;
+  final String  image;  // Adicionado campo image
+  User({
+    this.id = 0,  // Inicialmente definido como 0, será atualizado ao salvar
+    required this.username,
+    required this.email,
+    required this.password,
+    required this.image,  // Adicionado campo image
+  });
+  User copyWith({
+    String? username,
+    String? email,
+    String? password,
+    String? image,
+  }) {
+    return User(
+      username: username ?? this.username,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      image: image ?? this.image,
+    );
+  }
+  //adicionado método fromJson
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      json['id'],
-      json['username'],
-      json['email'],
+      id: json['id'],
+      username: json['username'],
+      email: json['email'],
+      password: json['password'],
+      image: json['image'],  // Adicionado campo image
     );
   }
 
@@ -24,6 +41,8 @@ class User {
       'id': id,
       'username': username,
       'email': email,
+      'password': password,
+      'image': image,  // Adicionado campo image
     };
   }
 }

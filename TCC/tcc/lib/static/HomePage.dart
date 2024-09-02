@@ -1,34 +1,28 @@
-import 'dart:typed_data';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tcc/pages/Configura%C3%A7%C3%B5esPage.dart';
-import 'package:tcc/pages/ExplorePage.dart';
-import 'package:tcc/pages/InicioPage.dart';
-import 'package:tcc/pages/TurmaPage.dart';
-import 'package:tcc/Providers/user_provider.dart';
+import 'package:visual/pages/Configura%C3%A7%C3%B5esPage.dart';
+import 'package:visual/pages/ExplorePage.dart';
+import 'package:visual/pages/InicioPage.dart';
+import 'package:visual/pages/TurmaPage.dart';
 import 'package:provider/provider.dart';
+import 'package:visual/provider/UserProvider.dart';
+import 'package:visual/User.dart';
+
 class HomePage extends StatefulWidget {
-  
-  
   const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
-  
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
-  
   int _selectedIndex = 0;
-  
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-  
 
   final List<Widget> _pages = [
     InicioPage(),
@@ -37,8 +31,54 @@ class _HomePageState extends State<HomePage> {
     ConfiguracoesPage()
   ];
 
+  void _UserInfo(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(255, 48, 48, 48),
+          title: const Text('Seu Perfil', style: TextStyle(color: Colors.white)),
+          content: Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage('http://thispersondoesnotexist.com'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Nome: usuario", style: TextStyle(color: Colors.white)),
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Username: usuario123", style: TextStyle(color: Colors.white))),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Email: usuario@gmail.com", style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Fechar', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _FormsAdd(BuildContext context) {
-    
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -86,18 +126,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showBottomSheet(BuildContext context) {
-    
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        
         return Wrap(
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.add),
               title: Text('Adicionar Turma'),
               onTap: () {
-                
                 Navigator.pop(context);
                 _FormsAdd(context);
               },
@@ -110,97 +147,180 @@ class _HomePageState extends State<HomePage> {
                 // Ação para entrar em uma turma
               },
             ),
-            
           ],
         );
       },
     );
-    
   }
-  
-  
+
+    User? user;
+
+    @override
+    void initState() {
+      super.initState();
+
+      // Carrega as informações do usuário ao iniciar a página
+      user = Provider.of<AuthProvider>(context, listen: false).currentUser;
+    }
+
+
   @override
   Widget build(BuildContext context) {
-    final _user = Provider.of<UserProvider>(context).user;
-    String _username = _user.username;
-    String _email = _user.email;
-    final _image = Provider.of<UserProvider>(context).image;
-     
-
     return Scaffold(
-      floatingActionButton: _selectedIndex == 1
-          ? FloatingActionButton(
-              onPressed: () {
-                _showBottomSheet(context);
-              },
-              child: const Icon(Icons.add),
-            )
-          : null,
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.blue[900],
-        ),
-        child: Column(children: [
-          AppBar(
-            iconTheme: const IconThemeData(color: Colors.white),
-            title: _selectedIndex == 0 ? const Text('Início', style: TextStyle(color: Colors.white)) : _selectedIndex == 1 ? const Text('Minha Turma', style: TextStyle(color: Colors.white)) : _selectedIndex == 2 ? const Text('Explore', style: TextStyle(color: Colors.white)) : const Text('Configurações',
-                style: TextStyle(color: Colors.white)),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
+        floatingActionButton: _selectedIndex == 1
+            ? FloatingActionButton(
+                onPressed: () {
+                  _showBottomSheet(context);
+                },
+                child: const Icon(Icons.add),
+              )
+            : null,
+        body: Container(
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 20, 21, 24),
           ),
-          Expanded(
-            child: _pages[_selectedIndex],
-          ),
-        ]),
-      ),
-      drawer: Builder(
-        builder: (context) => Drawer(
-          child: MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: ListView(
-              children: <Widget>[
-                UserAccountsDrawerHeader(
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage:  
-                      Image.network('http://thispersondoesnotexist.com').image,
-                  ),
-                  accountName: Text(_username, style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
-                  accountEmail: Text(_email, style: TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold)),
+          child: Column(children: [
+            AppBar(
+              leading: Builder(
+                builder: (context) => IconButton(
+                  icon: const Icon(Icons.menu, color: Colors.white),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
                 ),
-                ListTile(
-                    leading: Icon(Icons.home),
-                    title: Text('Início'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _onItemTapped(0);
-                    }),
-                ListTile(
-                    leading: Icon(Icons.money),
-                    title: Text('Minha Turma'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _onItemTapped(1);
-                    }),
-                ListTile(
-                    leading: Icon(Icons.contact_emergency),
-                    title: Text('Explore'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _onItemTapped(2);
-                    }),
-                ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text('Configurações'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _onItemTapped(3);
-                    }),
-              ],
+              ),
+              iconTheme: const IconThemeData(color: Colors.black),
+              title: _selectedIndex == 0
+                  ? const Text('Início', style: TextStyle(color: Colors.white))
+                  : _selectedIndex == 1
+                      ? const Text('Minha Turma',
+                          style: TextStyle(color: Colors.white))
+                      : _selectedIndex == 2
+                          ? const Text('Explore',
+                              style: TextStyle(color: Colors.white))
+                          : const Text('Configurações',
+                              style: TextStyle(color: Colors.white)),
+              backgroundColor: const Color.fromARGB(47, 0, 0, 0),
+              shadowColor: Colors.black,
+              elevation: 0,
+            ),
+            Expanded(
+              child: _pages[_selectedIndex],
+            ),
+          ]),
+        ),
+        drawer: Builder(
+          builder: (context) => Drawer(
+            backgroundColor: Color.fromARGB(255, 48, 48, 48),
+            child: MediaQuery.removePadding(
+              context: context,
+              child: ListView(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
+                      child: Text(
+                        "FlashComm",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.grey[600], // Color of the line
+                    thickness: 2, // Thickness of the line
+                  ),
+                  UserAccountsDrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    currentAccountPicture: GestureDetector(
+                      onTap: () {
+                        _UserInfo(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundImage:
+                            Image.asset('assets/images/user/${user?.image}').image,
+                      ),
+                    ),
+                    accountName: Text('${user?.username}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold)),
+                    accountEmail: Text('${user?.email}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  ListTile(
+                      leading: Icon(Icons.home, color: Colors.grey),
+                      title: Text('Início', style: TextStyle(color: Colors.grey)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onItemTapped(0);
+                      }),
+                  ListTile(
+                      leading: Icon(CupertinoIcons.group_solid, color: Colors.grey),
+                      title: Text('Minha Turma', style: TextStyle(color: Colors.grey)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onItemTapped(1);
+                      }),
+                  ListTile(
+                      leading: Icon(CupertinoIcons.compass_fill, color: Colors.grey),
+                      title: Text('Explore', style: TextStyle(color: Colors.grey)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onItemTapped(2);
+                      }),
+                  ListTile(
+                      leading: Icon(Icons.settings, color: Colors.grey),
+                      title: Text('Configurações', style: TextStyle(color: Colors.grey)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _onItemTapped(3);
+                      }),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:visual/User.dart';
+// import 'package:visual/provider/UserProvider.dart';
+
+// class HomePage extends StatefulWidget {
+//   @override
+//   _HomePageState createState() => _HomePageState();
+// }
+
+// class _HomePageState extends State<HomePage> {
+//   User? user;
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     // Carrega as informações do usuário ao iniciar a página
+//     user = Provider.of<AuthProvider>(context, listen: false).currentUser;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Bem-vindo, ${user?.username ?? 'Usuário'}'),
+//       ),
+//       body: Center(
+//         child: Text('Email: ${user?.email ?? ''}'),
+//       ),
+//     );
+//   }
+// }

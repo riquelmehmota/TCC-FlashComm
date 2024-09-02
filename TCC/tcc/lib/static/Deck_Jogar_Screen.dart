@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/static/Jogar.dart';
+import 'package:visual/static/Jogar.dart';
 class Deck_Jogar_Screen extends StatelessWidget {
   final String nome;
   final int quantidade;
@@ -9,25 +9,40 @@ class Deck_Jogar_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.blue,
+            color: Color.fromARGB(255, 20, 21, 24),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.all(32.0),
               child: AppBar(
-                iconTheme: const IconThemeData(color: Colors.white),
-                title: Center(
-                  child: const Text('Jogar', style: TextStyle(color: Colors.white)),
-                ),
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-              ),
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+  iconTheme: const IconThemeData(color: Colors.white),
+  backgroundColor: Colors.transparent,
+  elevation: 0,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Spacer(), 
+      const Text('Jogar', style: TextStyle(color: Colors.white)),
+      Spacer(), 
+    ],
+  ),
+  actions: [SizedBox(width: 48)], 
+)
+
             ),
             Expanded(
               child: Column(
@@ -52,7 +67,7 @@ class Deck_Jogar_Screen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          "$nome",
+                          nome,
                           style: TextStyle(color: Colors.white, fontSize: 30),
                         ),
                         Text("$quantidade Cartas", style: TextStyle(color: Colors.white, fontSize: 20)),
@@ -60,22 +75,23 @@ class Deck_Jogar_Screen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return Jogar(index: index);
-                          },
-                        ),
-                      );
-                      },
-                      child: Text("Jogar", style: TextStyle(color: Colors.black, fontSize: 20)),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.fromLTRB(150, 20, 150, 20),
-                        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    padding: const EdgeInsets.fromLTRB(32.0, 16, 32, 16),
+                    child: Container(
+                      height: 50,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return Jogar(index: index);
+                            },
+                          ),
+                        );
+                        },
+                        child: Text("Jogar", style: TextStyle(color: Colors.black, fontSize: 20)),
+                        
                       ),
                     ),
                   )
@@ -85,6 +101,7 @@ class Deck_Jogar_Screen extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
 }
