@@ -1,44 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/Providers/user_provider.dart';
-import 'package:tcc/pages/login_screen.dart';
-import 'package:tcc/pages/sign_in_screen.dart';
-import 'package:tcc/static/HomePage.dart';
+import 'package:visual/pages/login_screen.dart';
+import 'package:visual/pages/sign_in_screen.dart';
+import 'package:visual/static/HomePage.dart';
+import 'package:visual/static/Turma.dart';
+import 'package:visual/pages/CreateUserPage.dart';
 import 'package:provider/provider.dart';
+import 'package:visual/provider/UserProvider.dart';
+
+
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
-
-
-
 class MyApp extends StatelessWidget {
-  
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (context) => UserProvider(),
-      child: MaterialApp(
-        routes: {
-          '/login': (context) => LoginScreen(),
-          "/home": (context) => HomePage(),
-          "/signup": (context) => SignUpScreen(),
-        },
+    return MaterialApp(
+      
+      initialRoute: '/login',
+      routes: {
+        
+        '/homepage': (context) => HomePage(),
+        '/turma': (context) => const Turma(),
+        '/login': (context) => const LoginScreen(),
+        '/signup': (context) => const SignInScreen(),
+        '/createuser': (context) => const CreateUserPage(),
 
-        theme: ThemeData(
-          fontFamily: 'Montserrat',
-          textTheme: TextTheme(
-            headlineLarge: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            headlineMedium: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            headlineSmall: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            titleLarge: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            titleMedium: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            titleSmall: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            bodyLarge: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            bodyMedium: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            bodySmall: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            labelLarge: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-            labelSmall: TextStyle(fontFamily: 'Montserrat', fontWeight: FontWeight.bold),
-          ),
+      },
+
+      theme: ThemeData(
+        textTheme: const TextTheme(
+
+          bodyLarge: TextStyle(fontFamily: 'Montserrat'),
+          bodyMedium: TextStyle(fontFamily: 'Montserrat'),
+          bodySmall: TextStyle(fontFamily: 'Montserrat'),
+          headlineLarge: TextStyle(fontFamily: 'Montserrat'),
+          headlineMedium: TextStyle(fontFamily: 'Montserrat'),
+          headlineSmall: TextStyle(fontFamily: 'Montserrat'),
+          titleLarge: TextStyle(fontFamily: 'Montserrat'),
+          titleMedium: TextStyle(fontFamily: 'Montserrat'),
+          titleSmall: TextStyle(fontFamily: 'Montserrat'),
+          labelLarge: TextStyle(fontFamily: 'Montserrat'),
+          labelMedium: TextStyle(fontFamily: 'Montserrat'),
+          labelSmall: TextStyle(fontFamily: 'Montserrat'),
+          
         ),
-        home: LoginScreen(),
-      ));
+        primarySwatch: Colors.blue,
+      ),
+    );
   }
 }

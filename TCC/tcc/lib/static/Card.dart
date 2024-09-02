@@ -46,7 +46,7 @@ class _CardModelState extends State<CardModel> {
             onTap: _flip,
             child: TweenAnimationBuilder(
                 tween: Tween<double>(begin: 0, end: angle),
-                duration: Duration(milliseconds: 200),
+                duration: Duration(milliseconds: 100),
                 builder: (BuildContext context, val, __) {
                   return Transform(
                     alignment: Alignment.center,
