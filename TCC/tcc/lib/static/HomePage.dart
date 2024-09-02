@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:visual/pages/Configura%C3%A7%C3%B5esPage.dart';
-import 'package:visual/pages/ExplorePage.dart';
-import 'package:visual/pages/InicioPage.dart';
-import 'package:visual/pages/TurmaPage.dart';
+import 'package:tcc/pages/Configura%C3%A7%C3%B5esPage.dart';
+import 'package:tcc/pages/ExplorePage.dart';
+import 'package:tcc/pages/InicioPage.dart';
+import 'package:tcc/pages/TurmaPage.dart';
 import 'package:provider/provider.dart';
-import 'package:visual/provider/UserProvider.dart';
-import 'package:visual/User.dart';
+import 'package:tcc/provider/UserProvider.dart';
+import 'package:tcc/User.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
