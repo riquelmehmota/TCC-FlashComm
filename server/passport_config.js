@@ -16,6 +16,7 @@ var db = require('./models/db');
 
 
 function initialize(passport) {
+    
     const authenticateuser = async (email, password, done) => {
         const user = await db.user.findOne({ where: { email: email } });
         if (user == null) {
@@ -29,6 +30,7 @@ function initialize(passport) {
         return done(null, user);
     
     }
+
     passport.use(new LocalStrategy({usernameField: 'email'}, authenticateuser));
 
     passport.serializeUser(function(user, done) {
