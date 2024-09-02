@@ -1,7 +1,6 @@
 // Initialize express router
 const db = require('../models/db');
 const crypto = require('crypto');
-const e = require('express');
 const fs = require('fs').promises;
 const User = db.user;
 const path = require('path');
