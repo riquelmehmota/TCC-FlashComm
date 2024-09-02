@@ -2,6 +2,9 @@ List<Map<String, dynamic>> decks = [
   {
     "nome_do_deck": "Matemática Básica",
     "quantidade_de_cartas": 3,
+    "turma": 1,
+    "imagem": "assets/images/math.png",
+    "data": "2021-10-10",
     "cartas": [
       {"pergunta": "Qual é o resultado de 2 + 2?", "resposta": "4"},
       {"pergunta": "Qual é a raiz quadrada de 16?", "resposta": "4"},
@@ -11,6 +14,9 @@ List<Map<String, dynamic>> decks = [
   {
     "nome_do_deck": "Geografia",
     "quantidade_de_cartas": 4,
+    "turma": 2,
+    "imagem": "assets/images/geography.png",
+    "data": "2022-10-10",
     "cartas": [
       {
         "pergunta": "Qual é o maior país do mundo em termos de área?",
@@ -30,6 +36,9 @@ List<Map<String, dynamic>> decks = [
   {
     "nome_do_deck": "História Geral",
     "quantidade_de_cartas": 5,
+    "turma": 3,
+    "imagem": "assets/images/history.png",
+    "data": "2023-10-10",
     "cartas": [
       {
         "pergunta": "Quem foi o primeiro imperador de Roma?",
@@ -57,6 +66,9 @@ List<Map<String, dynamic>> decks = [
   {
     "nome_do_deck": "Ciência",
     "quantidade_de_cartas": 3,
+    "turma": 4,
+    "imagem": "assets/images/science.png",
+    "data": "2024-10-10",
     "cartas": [
       {
         "pergunta": "Qual é a velocidade da luz?",
@@ -75,6 +87,9 @@ List<Map<String, dynamic>> decks = [
   {
     "nome_do_deck": "Literatura",
     "quantidade_de_cartas": 6,
+    "turma": 5,
+    "imagem": "assets/images/literature.png",
+    "data": "2025-10-10",
     "cartas": [
       {
         "pergunta": "Quem escreveu 'Dom Quixote'?",
@@ -105,6 +120,9 @@ List<Map<String, dynamic>> decks = [
   {
     "nome_do_deck": "Arte",
     "quantidade_de_cartas": 6,
+    "turma": 6,
+    "imagem": "assets/images/art.png",
+    "data": "2026-10-10",
     "cartas": [
       {
         "pergunta": "Quem pintou 'A Última Ceia'?",
@@ -135,6 +153,8 @@ List<Map<String, dynamic>> decks = [
   {
     "nome_do_deck": "Tecnologia",
     "quantidade_de_cartas": 6,
+    "imagem": "assets/images/tech.png",
+    "data": "2027-10-10",
     "cartas": [
       {
         "pergunta": "Quem é considerado o pai da computação?",

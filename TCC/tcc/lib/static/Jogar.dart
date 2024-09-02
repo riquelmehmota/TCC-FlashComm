@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/static/Card.dart';
-import 'package:tcc/Deck_Dados.dart';
-import 'package:tcc/static/Resultados.dart';
+import 'package:visual/static/Card.dart';
+import 'package:visual/Deck_Dados.dart';
+import 'package:visual/static/Resultados.dart';
 import 'dart:async';
 
 
@@ -20,7 +20,7 @@ class _JogarState extends State<Jogar> {
   int facil = 0;
   int medio = 0;
   int dificil = 0;
-  int nao_sei = 0;
+  int nao_lembro = 0;
   void incrementFacil() {
     setState(() {
       facil++;
@@ -38,7 +38,7 @@ class _JogarState extends State<Jogar> {
   }
   void incrementNaoSei() {
     setState(() {
-      nao_sei++;
+      nao_lembro++;
     });
   }
   Timer? _timer;
@@ -70,7 +70,7 @@ class _JogarState extends State<Jogar> {
                 facil: facil,
                 medio: medio,
                 dificil: dificil,
-                nao_sei: nao_sei,
+                nao_lembro: nao_lembro,
               );
             },
           ),
@@ -92,7 +92,7 @@ class _JogarState extends State<Jogar> {
     return MaterialApp(
       home: Scaffold(
         
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 20, 21, 24),
         body: Container(
           
           child: Column(
