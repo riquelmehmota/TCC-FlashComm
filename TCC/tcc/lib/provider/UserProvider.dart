@@ -1,5 +1,5 @@
 
-import 'package:visual/User.dart';
+import 'package:tcc/User.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {

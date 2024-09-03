@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:visual/static/Card.dart';
-import 'package:visual/Deck_Dados.dart';
-import 'package:visual/static/Resultados.dart';
+import 'package:tcc/static/Card.dart';
+import 'package:tcc/Deck_Dados.dart';
+import 'package:tcc/static/Resultados.dart';
 import 'dart:async';
 
 
