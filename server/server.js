@@ -63,7 +63,7 @@ app.post('/logout', (req, res, next) => {
             return next(err);
         }
         res.send('Logged out');
-    });
+    }); 
 });
 
 

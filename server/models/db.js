@@ -18,7 +18,7 @@ db.subject = require('./SubjectModel')(sequelize, Sequelize);
 db.turma = require('./TurmaModel')(sequelize, Sequelize);
 
 // Card belongs to Deck
-db.deck.hasMany(db.card, { foreignKey: 'deck_id' });
+db.deck.hasMany(db.card, { foreignKey: 'deck_id', onDelete: 'CASCADE' });
 db.card.belongsTo(db.deck, { foreignKey: 'deck_id' });
 
 // Deck belongs to Turma
