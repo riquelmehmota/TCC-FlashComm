@@ -29,7 +29,11 @@ module.exports = (sequelize, Sequelize) => {
         profile_image: {
             type: Sequelize.BLOB('long'),
             defaultValue: null
-        }, 
+        },
+        mimetype: {
+            type: Sequelize.STRING,
+            defaultValue: null
+        }
         
     },{
         timestamps: false

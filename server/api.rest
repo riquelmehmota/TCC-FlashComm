@@ -1,29 +1,7 @@
 
-POST http://localhost:3000/Decks/create
-Content-Type: application/json
+GET http://localhost:3000/users/data
 
-{
-    "name": "Matemática", 
-    "description": "Prática da matemática",
-    "cards": [
-        {
-            "front": "1+1",
-            "back": "2"
-        },
-        {
-            "front": "2+2",
-            "back": "4"
-        },
-        {
-            "front": "3+3",
-            "back": "6"
-        }
-    ]
-}
 
-```
-
-DELETE http://localhost:3000/Decks/delete/1
 
 
 

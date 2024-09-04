@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/provider/UserProvider.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -169,7 +171,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                             onPressed: () {
                                               if (password == confirmpassword) {
                                                 // Cria uma instância do UserProvider
-                                                Navigator.pushNamed(context, '/createuser');
+                                                Provider.of<AuthProvider>(context, listen: false).singup(email, password);
                                               } else {
                                                 return _senhaInvalida();
                                               }
@@ -183,7 +185,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                             ),
                                             style: ButtonStyle(
                                               backgroundColor:
-                                                  MaterialStateProperty
+                                                  WidgetStateProperty
                                                       .all<Color>(Color.fromARGB(
                                                           255, 75, 57, 239)),
                                             ),

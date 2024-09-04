@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: CircleAvatar(
                         backgroundImage:
-                            Image.asset('assets/images/user/${user?.image}').image,
+                            Image(image: NetworkImage('http:// 200.128.141.167:3000/users/image'),).image,
                       ),
                     ),
                     accountName: Text('${user?.username}',

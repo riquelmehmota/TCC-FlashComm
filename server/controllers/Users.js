@@ -7,29 +7,55 @@ const path = require('path');
 
 
 async function get_all(req, res) {
-  await User.findAll({include: 'turma'}).then(users => {
-    res.send(users);
-  });
+    
+    await User.findAll({include: 'turma'}).then(users => {
+      res.send(users);
+    });
+
 }
 
 async function getbyID(req, res) {
-  await User.findOne({
-    where: {
-      id: req.params.id
-    }
-  }).then(user => {
-    res.send(user);
-  });
+  if(req.isAuthenticated()) {
+    await User.findOne({
+      where: {
+        id: req.user.id
+      }
+    }).then(user => {
+      res.send(user);
+    });
+  }
+  else {
+    res.status(401).send('Unauthorized');
+  }
 }
 
 async function get_image(req, res) {
-  var user = await User.findOne({
-    where: {
-      id: req.params.id
+  try {
+
+    if(!req.isAuthenticated()) {
+      return res.status(401).send('Unauthorized');
     }
-  });
-  
+
+    const user = await User.findOne({
+      where: {
+        id: req.user.id
+      }
+    });
+
+    if (!user || !user.profile_image) {
+      return res.status(404).send('Image not found');
+    }
+
+    res.setHeader('Content-Type', `${user.mimetype}`);
+
+    res.send(user.profile_image);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 }
+
 
 async function register(req, res) {
   const salt = crypto.randomBytes(16).toString('hex');
@@ -46,26 +72,33 @@ async function register(req, res) {
   } catch (err) {
     profileImage = await fs.readFile(path.join(__dirname, '../assets/img/Default_pfp.jpg'));
   }
- 
-  await User.create({
-    username: req.body.username,
-    email: req.body.email,
-    salt: salt,
-    password: hashedPassword,
-    profile_image: profileImage
-    
-  }).then((User) => {
-    let user = {
-      id: User.id,
-      username: User.username,
-    };
-    req.login(user, (err) => {
-      if (err) {
-        return res.status(400).send('Failed to log in');
-      }
-      res.send(user);
+  
+  try {
+    await User.create({
+      username: req.body.username,
+      email: req.body.email,
+      salt: salt,
+      password: hashedPassword,
+      profile_image: profileImage,
+      mimiType: profileImage.mimetype
+      
+    }).then((User) => {
+      let user = {
+        id: User.id,
+        username: User.username,
+      };
+      req.login(user, (err) => {
+        if (err) {
+          return res.status(400).send('Failed to log in');
+        }
+        res.send(user);
+      });
     });
-  });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 }
 
 function update(req, res) {
