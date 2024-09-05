@@ -126,8 +126,8 @@ function update(req, res) {
   });
 }
 
-function remove(req, res) {
-  User.destroy({
+async function remove(req, res) {
+  await User.destroy({
     where: {
       id: req.params.id
     }

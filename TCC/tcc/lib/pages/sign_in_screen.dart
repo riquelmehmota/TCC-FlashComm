@@ -172,6 +172,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                               if (password == confirmpassword) {
                                                 // Cria uma instância do UserProvider
                                                 Provider.of<AuthProvider>(context, listen: false).singup(email, password);
+                                                Navigator.pushNamed(context, '/homepage');
                                               } else {
                                                 return _senhaInvalida();
                                               }

@@ -17,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+ 
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void _UserInfo(BuildContext context) {
+    User? _currentUser = Provider.of<AuthProvider>(context, listen: false).currentUser;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -48,19 +51,19 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
                     backgroundImage:
-                        NetworkImage('http://thispersondoesnotexist.com'),
+                        NetworkImage('http://192.168.100.112:3000/users/image'),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Nome: usuario", style: TextStyle(color: Colors.white)),
+                  child: Text("Nome: ${_currentUser?.username}", style: TextStyle(color: Colors.white)),
                 ),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("Username: usuario123", style: TextStyle(color: Colors.white))),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Email: usuario@gmail.com", style: TextStyle(color: Colors.white)),
+                  child: Text("Email: ${_currentUser?.email}", style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
@@ -166,6 +169,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<AuthProvider>(context, listen: false).serializeUser();
     return Scaffold(
         floatingActionButton: _selectedIndex == 1
             ? FloatingActionButton(
@@ -242,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: CircleAvatar(
                         backgroundImage:
-                            Image(image: NetworkImage('http:// 200.128.141.167:3000/users/image'),).image,
+                            Image(image: NetworkImage('http://192.168.100.112:3000/users/image'),).image,
                       ),
                     ),
                     accountName: Text('${user?.username}',
