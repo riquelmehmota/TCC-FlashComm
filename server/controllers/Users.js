@@ -67,10 +67,10 @@ async function register(req, res) {
       return res.status(400).send('Please upload a valid image file');
     }
     
-    const profileImagePath = path.join(__dirname, '../assets/img', req.file.filename);
-    var profileImage = await fs.readFile(profileImagePath);
+    var profileImage = req.file.filename;
+    
   } catch (err) {
-    profileImage = await fs.readFile(path.join(__dirname, '../assets/img/Default_pfp.jpg'));
+    profileImage = 'Default_pfp.jpg';
   }
   
   try {

@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 0
         },
         profile_image: {
-            type: Sequelize.BLOB('long'),
+            type: Sequelize.STRING,
             defaultValue: null
         },
         mimetype: {

@@ -14,7 +14,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const initializePassport = require('./passport_config');
 
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
     console.log('Drop and re-sync db.');
 });
 
@@ -67,7 +67,23 @@ app.post('/logout', (req, res, next) => {
 });
 
 app.get('/image', (req, res) => {
-res.sendFile(__dirname + '/assets/img/image.png');
+    if (req.isAuthenticated()) {
+
+        db.user.findOne({ where: { id: req.user.id } }).then(user => {
+            if (user) {
+                res.sendFile(__dirname + '/assets/img/' + user.profile_image);
+            } else {
+                res.send('User not found');
+            }
+        }).catch(err => {
+            res.send('Error: ' + err);
+        });
+       
+    }
+    else {
+        res.send('Not authenticated');
+    }
+   
 })
 
 

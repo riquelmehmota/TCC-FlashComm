@@ -1,5 +1,13 @@
 
-GET http://localhost:3000/users/data
+# POST http://localhost:3000/login
+# Content-Type: application/json
+
+# {
+#     "email": "ww@gmail.com",
+#     "password": "123456"  
+# }
+
+POST http://localhost:3000/logout
 
 
 
