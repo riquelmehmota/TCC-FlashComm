@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:visual/pages/login_screen.dart';
-import 'package:visual/pages/sign_in_screen.dart';
-import 'package:visual/static/HomePage.dart';
-import 'package:visual/static/Turma.dart';
-import 'package:visual/pages/CreateUserPage.dart';
+import 'package:tcc/pages/login_screen.dart';
+import 'package:tcc/pages/sign_in_screen.dart';
+import 'package:tcc/static/HomePage.dart';
+import 'package:tcc/static/Turma.dart';
+import 'package:tcc/pages/CreateUserPage.dart';
 import 'package:provider/provider.dart';
-import 'package:visual/provider/UserProvider.dart';
+import 'package:tcc/provider/UserProvider.dart';
 
 
 void main() {

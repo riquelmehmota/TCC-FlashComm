@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:visual/static/Jogar.dart';
+import 'package:tcc/static/Jogar.dart';
 class Deck_Jogar_Screen extends StatelessWidget {
   final String nome;
   final int quantidade;

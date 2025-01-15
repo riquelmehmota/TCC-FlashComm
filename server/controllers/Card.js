@@ -24,6 +24,10 @@ function create(req, res) {
         name: req.body.name,
         cards: req.body.cards,
         deck_id: req.params.deckid
+    },{
+        include: [{
+            association: 'deck'
+        }]
     }).then(card => {
         res.send('success');
     });

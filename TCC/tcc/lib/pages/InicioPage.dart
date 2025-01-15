@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:visual/static/Deck_Jogar_Screen.dart';
+import 'package:tcc/static/Deck_Jogar_Screen.dart';
 import '../Deck_Dados.dart';
 
 class InicioPage extends StatefulWidget {

@@ -63,8 +63,12 @@ app.post('/logout', (req, res, next) => {
             return next(err);
         }
         res.send('Logged out');
-    });
+    }); 
 });
+
+app.get('/image', (req, res) => {
+res.sendFile(__dirname + '/assets/img/image.png');
+})
 
 
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:visual/static/HomePage.dart';
+import 'package:tcc/static/HomePage.dart';
 import 'dart:math';
 
 class Resultados extends StatelessWidget {

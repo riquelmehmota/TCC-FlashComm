@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:visual/pages/Configura%C3%A7%C3%B5esPage.dart';
-import 'package:visual/pages/ExplorePage.dart';
-import 'package:visual/pages/InicioPage.dart';
-import 'package:visual/pages/TurmaPage.dart';
+import 'package:tcc/pages/Configura%C3%A7%C3%B5esPage.dart';
+import 'package:tcc/pages/ExplorePage.dart';
+import 'package:tcc/pages/InicioPage.dart';
+import 'package:tcc/pages/TurmaPage.dart';
 import 'package:provider/provider.dart';
-import 'package:visual/provider/UserProvider.dart';
-import 'package:visual/User.dart';
+import 'package:tcc/provider/UserProvider.dart';
+import 'package:tcc/User.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+ 
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void _UserInfo(BuildContext context) {
+    User? _currentUser = Provider.of<AuthProvider>(context, listen: false).currentUser;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -48,19 +51,19 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
                     backgroundImage:
-                        NetworkImage('http://thispersondoesnotexist.com'),
+                        NetworkImage('http://192.168.100.112:3000/users/image'),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Nome: usuario", style: TextStyle(color: Colors.white)),
+                  child: Text("Nome: ${_currentUser?.username}", style: TextStyle(color: Colors.white)),
                 ),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("Username: usuario123", style: TextStyle(color: Colors.white))),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Email: usuario@gmail.com", style: TextStyle(color: Colors.white)),
+                  child: Text("Email: ${_currentUser?.email}", style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
@@ -166,6 +169,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<AuthProvider>(context, listen: false).serializeUser();
     return Scaffold(
         floatingActionButton: _selectedIndex == 1
             ? FloatingActionButton(
@@ -242,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: CircleAvatar(
                         backgroundImage:
-                            Image.asset('assets/images/user/${user?.image}').image,
+                            Image(image: NetworkImage('http://192.168.100.112:3000/users/image'),).image,
                       ),
                     ),
                     accountName: Text('${user?.username}',
