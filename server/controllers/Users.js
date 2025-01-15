@@ -80,7 +80,7 @@ async function register(req, res) {
       salt: salt,
       password: hashedPassword,
       profile_image: profileImage,
-      mimiType: profileImage.mimetype
+      mimiType: profileImage.split('.')[1]
       
     }).then((User) => {
       let user = {
