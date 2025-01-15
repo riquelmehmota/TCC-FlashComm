@@ -66,6 +66,10 @@ app.post('/logout', (req, res, next) => {
     }); 
 });
 
+app.get('/image', (req, res) => {
+res.sendFile(__dirname + '/assets/img/image.png');
+})
+
 
 
 app.listen(3000, () => {
