@@ -6,9 +6,10 @@ const User = db.user;
 const path = require('path');
 
 
+
 async function get_all(req, res) {
     
-    await User.findAll({include: 'turma'}).then(users => {
+    await User.findAll().then(users => {
       res.send(users);
     });
 
@@ -57,7 +58,9 @@ async function get_image(req, res) {
 }
 
 
-async function register(req, res) {
+async function register(req,res) {
+  console.log(req.body);
+  console.log(req.file);
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
   
@@ -80,7 +83,7 @@ async function register(req, res) {
       salt: salt,
       password: hashedPassword,
       profile_image: profileImage,
-      mimiType: `Image/${profileImage.split('.')[1]}`
+      mimetype: `Image/${req.file.originalname.split('.')[1]}`
       
     }).then((User) => {
       let user = {

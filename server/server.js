@@ -14,7 +14,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const initializePassport = require('./passport_config');
 
 
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
     console.log('Drop and re-sync db.');
 });
 
