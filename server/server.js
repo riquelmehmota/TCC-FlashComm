@@ -18,8 +18,8 @@ db.sequelize.sync({ force: false }).then(() => {
     console.log('Drop and re-sync db.');
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 //Authentication settings

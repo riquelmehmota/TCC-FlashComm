@@ -1,4 +1,5 @@
 // Initialize express router
+const { error } = require('console');
 const db = require('../models/db');
 const crypto = require('crypto');
 const fs = require('fs').promises;
@@ -58,6 +59,7 @@ async function get_image(req, res) {
 
 
 async function register(req, res) {
+  console.log(req.body);
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
   
@@ -71,6 +73,8 @@ async function register(req, res) {
     
   } catch (err) {
     profileImage = 'Default_pfp.jpg';
+    console.log(err.message);
+    console.log(profileImage.split('.')[1])
   }
   
   try {
@@ -80,7 +84,8 @@ async function register(req, res) {
       salt: salt,
       password: hashedPassword,
       profile_image: profileImage,
-      mimiType: `Image/${profileImage.split('.')[1]}`
+      mimetype: `Image/${profileImage.split('.')[1]}`
+    
       
     }).then((User) => {
       let user = {

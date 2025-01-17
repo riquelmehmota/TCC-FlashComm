@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/provider/UserProvider.dart';
+import '../provider/UserProvider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -127,11 +127,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         onPressed: () {
                                           //verifica se é email valido
                                           if(email.isNotEmpty && password.isNotEmpty){
-                                            
+                                            Provider.of<AuthProvider>(context, listen: false).login(email, password, context);
                                             Navigator.pushNamed(context, '/homepage');
                                           }
-
-                                          
                                           else{
                                             showDialog(
                                               context: context,
@@ -158,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
+                                    
                                         ),
                                         style: ButtonStyle(
                                           backgroundColor:

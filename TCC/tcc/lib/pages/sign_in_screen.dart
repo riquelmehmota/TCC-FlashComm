@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/pages/CreateUserPage.dart';
 import 'package:tcc/provider/UserProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -170,10 +171,16 @@ class _SignInScreenState extends State<SignInScreen> {
                                           child: ElevatedButton(
                                             onPressed: () {
                                               if (password == confirmpassword) {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => CreateUserPage(email: email, password: password),
+                                                  ),
+                                              );
                                                 // Cria uma instância do UserProvider
-                                                Provider.of<AuthProvider>(context, listen: false).singup(email, password);
-                                                Navigator.pushNamed(context, '/homepage');
+                                                
                                               } else {
+                                                
                                                 return _senhaInvalida();
                                               }
                                             },

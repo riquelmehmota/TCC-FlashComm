@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import 'package:tcc/provider/UserProvider.dart';
+
 class CreateUserPage extends StatefulWidget {
-  const CreateUserPage({super.key});
+  final String email;
+  final String password;
+  const CreateUserPage({super.key, required this.email, required this.password});
 
   @override
-  State<CreateUserPage> createState() => _CreateUserPageState();
+  _CreateUserPageState createState() => _CreateUserPageState();
 }
 
 class _CreateUserPageState extends State<CreateUserPage> {
@@ -25,11 +29,11 @@ class _CreateUserPageState extends State<CreateUserPage> {
   }
 
 
-  String _imagePath() {
+  File _image() {
     if (_imageFile != null) {
-      return _imageFile!.path;
+      return _imageFile!;
     } else {
-      return "";
+      return File('');
     }
   }
 
@@ -156,8 +160,35 @@ class _CreateUserPageState extends State<CreateUserPage> {
                                         onPressed: () {
                                           if (_usernameController
                                               .text.isNotEmpty) {
-                                            // Cria uma instância do UserProvider
-                                            Navigator.pushNamed(context, '/homepage');
+                                            AuthProvider().signUp(
+                                              widget.email,
+                                              widget.password,
+                                              _usernameController.text,
+                                              _image(),
+                                              context
+                                            ).then((result) {
+                                              if (result) {
+                                                Navigator.pushNamed(context, '/home');
+                                              } else {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      title: Text("Erro"),
+                                                      content: Text("Falha ao cadastrar usuário. Tente novamente."),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                          child: Text("OK"),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                            });
                                           } else {
                                             showDialog(
                                               context: context,

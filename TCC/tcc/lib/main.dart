@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         '/turma': (context) => const Turma(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignInScreen(),
-        '/createuser': (context) => const CreateUserPage(),
+        '/createuser': (context) => CreateUserPage(email: 'example@example.com', password: 'password123'),
 
       },
 
