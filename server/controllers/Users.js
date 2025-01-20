@@ -60,8 +60,6 @@ async function get_image(req, res) {
 
 
 async function register(req,res) {
-  console.log(req.body);
-  console.log(req.file);
   const salt = crypto.randomBytes(16).toString('hex');
   const hashedPassword = crypto.pbkdf2Sync(req.body.password, salt, 310000, 32, 'sha256').toString('hex');
   
