@@ -76,7 +76,7 @@ app.get('/image', (req, res) => {
                 res.send('User not found');
             }
         }).catch(err => {
-            res.send('Error: ' + err);
+            res.send('Error: ' + err.message);
         });
        
     }

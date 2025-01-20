@@ -70,21 +70,35 @@ async function register(req,res) {
     }
     
     var profileImage = req.file.filename;
+    var mimetype = `Image/${req.file.originalname.split('.')[1]}`
     
   } catch (err) {
     profileImage = 'Default_pfp.jpg';
+    mimetype = `Image/${profileImage.split('.')[1]}`
     console.log(err.message);
-    console.log(profileImage.split('.')[1])
   }
   
   try {
+    const existingUser = await User.findOne({
+      where: {
+      [db.Sequelize.Op.or]: [
+        { username: req.body.username },
+        { email: req.body.email }
+      ]
+      }
+    });
+
+    if (existingUser) {
+      return res.status(400).send('Username or email already exists');
+    }
+    
     await User.create({
       username: req.body.username,
       email: req.body.email,
       salt: salt,
       password: hashedPassword,
       profile_image: profileImage,
-      mimetype: `Image/${req.file.originalname.split('.')[1]}`
+      mimetype: mimetype
       
     }).then((User) => {
       let user = {
@@ -100,7 +114,7 @@ async function register(req,res) {
     });
   }
   catch (error) {
-    console.error(error);
+    console.error(error.message);
     res.status(500).send('Internal Server Error');
   }
 }
